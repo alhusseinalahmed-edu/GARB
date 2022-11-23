@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e65fcd9dda1c94ebe0fb36de1e34f7, type: 3}
+  m_Name: M4
+  m_EditorClassIdentifier: 
+  muzzleFlash: {fileID: 0}
+  weaponType: 0
+  damage: 20
+  name: M4
+  fireRate: 0.09
+  pellets: 1
+  weaponRange: 100
+  ammoPerMag: 30
+  reloadDuration: 2
+  bulletSpread: 10
+  normalBulletSpread: 10
+  adsBulletSpread: 5
+  currentAmmo: 30
+  ammoLeft: 63
+  position: {x: 0.5, y: 0.25, z: 0.8}
+  rotation: {x: 0, y: 0.9961947, z: 0, w: -0.08715577}
+  aimPosition: {x: 0, y: 0.28, z: 0.35}
+  aimRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  shootSound: {fileID: 8300000, guid: e0b2120a3b4cd4d489af9f71588c501f, type: 3}
+  shootVolume: 1
+  RecoilRotationWeapon: {x: 75, y: 0, z: 0}
+  RecoilKickBack: {x: 0, y: 0, z: -0.15}
+  RecoilRotationAim: {x: 10, y: 0, z: 0}
+  RecoilKickBackAim: {x: 0, y: 0, z: -0.05}

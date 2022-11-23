@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e65fcd9dda1c94ebe0fb36de1e34f7, type: 3}
+  m_Name: M107
+  m_EditorClassIdentifier: 
+  muzzleFlash: {fileID: 0}
+  damage: 51
+  name: M107
+  fireRate: 0.4
+  pellets: 1
+  weaponRange: 150
+  ammoPerMag: 20
+  reloadDuration: 4
+  bulletSpread: 200
+  normalBulletSpread: 200
+  adsBulletSpread: 1
+  currentAmmo: 0
+  ammoLeft: 120
+  position: {x: 0.5, y: 0.2, z: 1.03}
+  rotation: {x: 0, y: 0.9961947, z: 0, w: -0.08715577}
+  aimPosition: {x: 0, y: 0.32, z: 0.35}
+  aimRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  shootSound: {fileID: 8300000, guid: e0b2120a3b4cd4d489af9f71588c501f, type: 3}
+  shootVolume: 1
+  RecoilRotationWeapon: {x: 150, y: 0, z: 0}
+  RecoilKickBack: {x: 0, y: 0, z: -0.25}
+  RecoilRotationAim: {x: 35, y: 0, z: 0}
+  RecoilKickBackAim: {x: 0, y: 0, z: -0.15}

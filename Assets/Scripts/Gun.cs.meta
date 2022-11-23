@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 68e65fcd9dda1c94ebe0fb36de1e34f7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - itemInfo: {instanceID: 0}
+  - itemGameObject: {instanceID: 0}
+  - concreteImpact: {fileID: 108086, guid: 547c2e12da8d4214098216299e70a3ba, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
