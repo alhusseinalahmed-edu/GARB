@@ -120,4 +120,8 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         Instantiate(playerPrefab, playerListContent).GetComponent<PlayerListItem>().Setup(newPlayer);
 
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

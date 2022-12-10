@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [Header("Settings")]
     [SerializeField] float sprintSpeed, smoothTime, jumpForce;
 
-    private Rigidbody rb;
+    private CharacterController characterController;
     private PhotonView PV;
     private Animator anim;
 
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     #region Unitys
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
         PV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         playerHandler = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerHandler>();
@@ -56,11 +56,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         {
             GetComponentInChildren<Camera>().gameObject.SetActive(false);
             GetComponent<RecoilHandler>().enabled = false;
-            Destroy(rb);
             Destroy(UI);
         }
         GetComponentInChildren<SetupRagdoll>().Setup(true);
-        GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Collider>().enabled = true;
     }
     private void Update()
@@ -69,12 +67,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         Move();
 
     }
-    private void FixedUpdate()
-    {
-        if (!PV.IsMine) return;
-        rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-    }
-
     #endregion
 
     #region Functions
@@ -82,9 +74,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     private void Move()
     {
-        Vector3 moveDir = new Vector3(inputHandler.horz, 0, inputHandler.vert).normalized;
+        Vector3 moveDir = new Vector3(inputHandler.horz, 0, inputHandler.vert);
 
-        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir *  sprintSpeed, ref smoothMoveVelocity, smoothTime);
+        moveDir *= sprintSpeed;
+        moveDir = transform.TransformDirection(moveDir);
+        characterController.Move(moveDir * Time.deltaTime);
 
     }
     private void Die()
@@ -95,18 +89,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     public void Jump()
     {
-        if (Grounded)
+        if (characterController.isGrounded)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             animatorHandler.CrossFadeInFixedTime("Jump", 0.05f);
         }
-        else if(!Grounded && doubleJump != 0)
+        else if(characterController.isGrounded && doubleJump != 0)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             animatorHandler.CrossFadeInFixedTime("Jump", 0.05f);
             doubleJump = 0;
         }
-        else if (!Grounded)
+        else if (!characterController.isGrounded)
         {
             return;
         }
