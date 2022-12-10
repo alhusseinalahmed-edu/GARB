@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class WeaponHandler : MonoBehaviour
@@ -13,6 +14,7 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] TMP_Text ammoText;
     [SerializeField] RecoilHandler recoilHandler;
     [SerializeField] Camera cam;
+    [SerializeField] TMP_Text reloadText;
     public Gun[] guns;
     [SerializeField] AudioSource weaponSource;
     public PhotonView PV;
@@ -20,7 +22,6 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] GameObject[] tpsGuns;
     [SerializeField] AnimatorHandler animatorHandler;
     [SerializeField] PlayerController playerController;
-
 
     float nextShootTimer;
 
@@ -150,9 +151,10 @@ public class WeaponHandler : MonoBehaviour
         {
             isReloading = true;
             if(mag != null) mag.SetActive(false);
-
+            reloadText.gameObject.SetActive(true);
             yield return new WaitForSeconds(currentGun.reloadDuration);
             isReloading = false;
+            reloadText.gameObject.SetActive(false);
             int reloadAmount = currentGun.ammoPerMag - currentGun.currentAmmo;
             currentGun.currentAmmo = currentGun.ammoPerMag;
             currentGun.ammoLeft -= reloadAmount;
