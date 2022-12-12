@@ -98,6 +98,7 @@ public class WeaponHandler : MonoBehaviour
     {
         if (nextShootTimer > Time.time) return;
         if (currentGun.currentAmmo <= 0) return;
+        HandleBulletSpread();
         RaycastHit hit;
         for (int i = 0; i < Mathf.Max(1, currentGun.pellets); i++)
         {
@@ -182,34 +183,26 @@ public class WeaponHandler : MonoBehaviour
         weaponSource.PlayOneShot(currentGun.shootSound);
         weaponSource.volume = currentGun.shootVolume;
     }
-    public void HandleADS()
+    public void HandleBulletSpread()
     {
-        if (isAiming)
+        if (playerController.isMoving)
         {
-            isAiming = false;
-            recoilHandler.aiming = false;
             foreach (GameObject go in fpsGuns)
             {
                 if (go.transform.name == currentGun.name)
                 {
-                    go.transform.localPosition = currentGun.position;
-                    go.transform.localRotation = currentGun.rotation;
-                    currentGun.bulletSpread = currentGun.normalBulletSpread;
+                    currentGun.bulletSpread = currentGun.runningBulletSpread;
                 }
             }
         }
         else
         {
             isAiming = true;
-            recoilHandler.aiming = true;
             foreach (GameObject go in fpsGuns)
             {
                 if (go.transform.name == currentGun.name)
                 {
-                    go.transform.localPosition = currentGun.aimPosition;
-                    go.transform.localRotation = currentGun.aimRotation;
-                    currentGun.bulletSpread = currentGun.adsBulletSpread;
-
+                    currentGun.bulletSpread = currentGun.normalBulletSpread;
                 }
             }
         }

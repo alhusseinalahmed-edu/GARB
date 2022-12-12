@@ -45,21 +45,7 @@ public class RecoilHandler : MonoBehaviour
     }
     public void Fire()
     {
-        Vector3 RecoilRotationAiming = weaponHandler.currentGun.RecoilRotationAim;
-        Vector3 RecoilRotationAim = weaponHandler.currentGun.RecoilRotationAim;
-        Vector3 RecoilKickBackAim = weaponHandler.currentGun.RecoilKickBackAim;
         Vector3 RecoilKickBack = weaponHandler.currentGun.RecoilKickBack;
-        if (aiming)
-        {
-            currentRotation += new Vector3(-RecoilRotationAiming.x, Random.Range(-RecoilRotationAiming.y,
-                RecoilRotationAiming.y), Random.Range(-RecoilRotationAiming.z, RecoilRotationAiming.z));
-            rotationalRecoil += new Vector3(-RecoilRotationAim.x, Random.Range(-RecoilRotationAim.y, RecoilRotationAim.y), Random.Range(-RecoilRotationAim.z, RecoilRotationAim.z));
-            positionalRecoil += new Vector3(Random.Range(-RecoilKickBackAim.x, RecoilKickBackAim.x), Random.Range(-RecoilKickBackAim.y, RecoilKickBackAim.y), RecoilKickBackAim.z);
-
-        }
-        else
-        {
-            positionalRecoil += new Vector3(Random.Range(-RecoilKickBack.x, RecoilKickBack.x), Random.Range(-RecoilKickBack.y, RecoilKickBack.y), RecoilKickBack.z);
-        }
+        positionalRecoil += new Vector3(Random.Range(-RecoilKickBack.x, RecoilKickBack.x), Random.Range(-RecoilKickBack.y, RecoilKickBack.y), RecoilKickBack.z);
     }
 }

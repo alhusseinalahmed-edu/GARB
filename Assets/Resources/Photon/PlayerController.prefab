@@ -246,8 +246,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748278353007835}
-  m_LocalRotation: {x: 0, y: 0.9980267, z: -0, w: -0.06279047}
-  m_LocalPosition: {x: 0.5, y: 0.25, z: 0.8}
+  m_LocalRotation: {x: 0, y: -0.9961947, z: 0, w: 0.08715588}
+  m_LocalPosition: {x: 0.3, y: 0.3, z: 0.8}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -257,7 +257,7 @@ Transform:
   - {fileID: 4414919565833327}
   m_Father: {fileID: 629745850}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 187.2, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -170, z: 0}
 --- !u!33 &33340790439481359
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -583,7 +583,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73157461882866497}
   m_LocalRotation: {x: 0, y: 0.9961947, z: -0, w: -0.08715578}
-  m_LocalPosition: {x: 0.5, y: 0.25, z: 0.8}
+  m_LocalPosition: {x: 0.3, y: 0.3, z: 0.7}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2998,7 +2998,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2809662133221881785}
   m_LocalRotation: {x: 0, y: 0.9961947, z: -0, w: -0.08715578}
-  m_LocalPosition: {x: 0.5, y: 0.25, z: 0.8}
+  m_LocalPosition: {x: 0.3, y: 0.3, z: 0.7}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4358,8 +4358,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3809072418135830158}
-  m_LocalRotation: {x: 0, y: 0.9961947, z: -0, w: -0.08715578}
-  m_LocalPosition: {x: 0.5, y: 0.25, z: 0.8}
+  m_LocalRotation: {x: 0, y: -0.9961947, z: 0, w: 0.08715588}
+  m_LocalPosition: {x: 0.3, y: 0.2, z: 0.8}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4370,7 +4370,7 @@ Transform:
   - {fileID: 3805023532801335282}
   m_Father: {fileID: 8273580600686667225}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 190, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -170, z: 0}
 --- !u!33 &3794505324653202648
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5239,7 +5239,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4457546766801331427}
   m_LocalRotation: {x: -0, y: 0.9961947, z: -0, w: -0.08715578}
-  m_LocalPosition: {x: 0.4, y: 0.34, z: 0.6}
+  m_LocalPosition: {x: 0.3, y: 0.3, z: 0.8}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6132,7 +6132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5926767498703771467}
   m_LocalRotation: {x: 0, y: 0.9961947, z: -0, w: -0.08715578}
-  m_LocalPosition: {x: 0.5, y: 0.25, z: 0.8}
+  m_LocalPosition: {x: 0.3, y: 0.2, z: 1}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6744,12 +6744,12 @@ GameObject:
   - component: {fileID: 8571933116687598852}
   - component: {fileID: 8992766125527490100}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2703982606437709639
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6798,7 +6798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: aac53942974c8844d8ed4441c0283bde, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7016,6 +7016,7 @@ MonoBehaviour:
   doubleJump: 1
   isDead: 0
   Grounded: 0
+  isMoving: 0
 --- !u!114 &-1245023855887044078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7254,8 +7255,8 @@ MonoBehaviour:
   cam: {fileID: 169827017361689582}
   reloadText: {fileID: 2919555539166324968}
   guns:
-  - {fileID: 11400000, guid: a0d48e3f66a1d0244bd7929651373d04, type: 2}
   - {fileID: 11400000, guid: c6aefe735b02d4c49b0a248499bfeb56, type: 2}
+  - {fileID: 11400000, guid: a0d48e3f66a1d0244bd7929651373d04, type: 2}
   - {fileID: 11400000, guid: cc24fde5484a34444ae6bb6fe30793f7, type: 2}
   - {fileID: 11400000, guid: b568f16af5716c94da9f36ba487b01b7, type: 2}
   - {fileID: 11400000, guid: 06d2fc0b9cce2f8408e28a6e192510ff, type: 2}

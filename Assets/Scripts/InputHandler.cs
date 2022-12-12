@@ -47,20 +47,16 @@ public class InputHandler : MonoBehaviour
         if (isPaused) return;
         for (int i = 0; i < weaponHandler.guns.Length; i++)
         {
-            /*
+            
             if (Input.GetKeyDown((i + 1).ToString()) && !weaponHandler.isReloading)
             {
                 weaponHandler.Equip(i);
                 break;
-            }*/
+            }
         }
         if (Input.GetMouseButton(0) && !weaponHandler.isReloading)
         {
             weaponHandler.Shoot();
-        }
-        if (Input.GetMouseButtonDown(1) && !weaponHandler.isReloading)
-        {
-            weaponHandler.HandleADS();
         }
         if (Input.GetKeyDown(KeyCode.R) && weaponHandler.currentGun.currentAmmo != weaponHandler.currentGun.ammoPerMag)
         {

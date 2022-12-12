@@ -24,24 +24,21 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     private CharacterController characterController;
     private PhotonView PV;
-    private Animator anim;
 
 
     const float maxHealth = 100f;
     float currentHealth = maxHealth;
     public int doubleJump = 1;
 
-    Vector3 smoothMoveVelocity;
-    Vector3 moveAmount;
     public bool isDead = false;
     public bool Grounded;
+    public bool isMoving = false;
 
     #region Unitys
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         PV = GetComponent<PhotonView>();
-        anim = GetComponent<Animator>();
         playerHandler = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerHandler>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -79,6 +76,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         moveDir *= sprintSpeed;
         moveDir = transform.TransformDirection(moveDir);
         characterController.Move(moveDir * Time.deltaTime);
+
+        if(characterController.velocity.magnitude > 1f)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
 
     }
     private void Die()

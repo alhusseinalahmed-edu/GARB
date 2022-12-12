@@ -18,16 +18,10 @@ public  class Gun : ScriptableObject
     public int ammoPerMag = 30;
     public float reloadDuration = 2;
     public float bulletSpread;
-    public float normalBulletSpread = 50;
-    public float adsBulletSpread = 25;
+    public float runningBulletSpread = 50;
+    public float normalBulletSpread = 25;
     public int currentAmmo;
     public int ammoLeft = 120;
-
-    [Header("Viewmodel Setings")]
-    public Vector3 position;
-    public Quaternion rotation;
-    public Vector3 aimPosition;
-    public Quaternion aimRotation;
 
     [Header("Other")]
     public AudioClip shootSound;
@@ -37,10 +31,6 @@ public  class Gun : ScriptableObject
     [Header("Recoil Settings:")]
     public Vector3 RecoilRotationWeapon = new Vector3(10, 5, 7);
     public Vector3 RecoilKickBack = new Vector3(0.015f, 0f, -0.2f);
-    public Vector3 RecoilRotationAim = new Vector3(10, 4, 6);
-    public Vector3 RecoilKickBackAim = new Vector3(0.015f, 0f, -0.2f);
-
-
 
 }
 
