@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="FPS/New gun")]
 public  class Gun : ScriptableObject
 {
+
     [Header("Prefabs")]
     public GameObject muzzleFlash;
 

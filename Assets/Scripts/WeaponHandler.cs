@@ -22,6 +22,7 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] GameObject[] tpsGuns;
     [SerializeField] AnimatorHandler animatorHandler;
     [SerializeField] PlayerController playerController;
+    [SerializeField] Animator weaponAnimator;
 
     float nextShootTimer;
 
@@ -90,6 +91,7 @@ public class WeaponHandler : MonoBehaviour
                 else
                 {
                     go.SetActive(true);
+                    weaponAnimator = go.transform.GetComponent<Animator>();
                 }
             }            
         }
@@ -98,6 +100,25 @@ public class WeaponHandler : MonoBehaviour
     {
         if (nextShootTimer > Time.time) return;
         if (currentGun.currentAmmo <= 0) return;
+        if (PV.IsMine)
+        {
+            if(weaponAnimator != null)
+            {
+                weaponAnimator.CrossFadeInFixedTime("Shoot", 0.01f);
+
+            }
+            else
+            {
+                foreach (GameObject go in fpsGuns)
+                {
+                    if (go.transform.name == currentGun.name)
+                    {
+                        weaponAnimator = go.transform.GetComponent<Animator>();
+                        weaponAnimator.CrossFadeInFixedTime("Shoot", 0.01f);
+                    }
+                }
+            }
+        }
         HandleBulletSpread();
         RaycastHit hit;
         for (int i = 0; i < Mathf.Max(1, currentGun.pellets); i++)
@@ -137,30 +158,20 @@ public class WeaponHandler : MonoBehaviour
     [PunRPC]
     IEnumerator RPC_Reload()
     {
-        GameObject mag = null;
-        if (currentGun.name != "Shotgun")
-        {
-            foreach (GameObject go in fpsGuns)
-            {
-                if (go.transform.name == currentGun.name)
-                {
-                    mag = go.transform.Find("Mag").gameObject;
-                }
-            }
-        }
         if (PV.IsMine)
         {
             isReloading = true;
-            if(mag != null) mag.SetActive(false);
+            weaponAnimator.CrossFadeInFixedTime("Reload", 0.01f);
+            weaponAnimator.SetBool("Reload", true);
             reloadText.gameObject.SetActive(true);
             yield return new WaitForSeconds(currentGun.reloadDuration);
             isReloading = false;
+            weaponAnimator.SetBool("Reload", false);
             reloadText.gameObject.SetActive(false);
             int reloadAmount = currentGun.ammoPerMag - currentGun.currentAmmo;
             currentGun.currentAmmo = currentGun.ammoPerMag;
             currentGun.ammoLeft -= reloadAmount;
             ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
-            if (mag != null) mag.SetActive(true);
         }
     }
     [PunRPC]
