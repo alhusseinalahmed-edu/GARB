@@ -5,11 +5,10 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance;
-    Transform[] spawnPoints;
+    [SerializeField]Transform[] spawnPoints;
     private void Awake()
     {
         Instance = this;
-        spawnPoints = transform.Find("PlayerSpawns").GetComponentsInChildren<Transform>();
         foreach (Transform sp in spawnPoints)
         {
             sp.gameObject.SetActive(false);

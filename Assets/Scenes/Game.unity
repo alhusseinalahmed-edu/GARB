@@ -813,6 +813,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092337e512ffa304ca14e5fa591cc46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoints:
+  - {fileID: 1802749699}
+  - {fileID: 841368535}
+  - {fileID: 1917242505}
+  - {fileID: 1843359050}
+  - {fileID: 1818063138}
+  - {fileID: 746331192}
+  - {fileID: 1205262879}
+  - {fileID: 133582021}
 --- !u!114 &619266747
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -71,7 +71,7 @@ public class WeaponHandler : MonoBehaviour
         ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
         foreach (GameObject go in tpsGuns)
         {
-            if (go.transform.name != currentGun.name)
+            if (go.transform.name != currentGun.name +"_TP")
             {
                 go.SetActive(false);
             }

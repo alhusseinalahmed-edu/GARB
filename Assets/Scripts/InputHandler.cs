@@ -58,16 +58,10 @@ public class InputHandler : MonoBehaviour
         {
             weaponHandler.Shoot();
         }
-        if (Input.GetKeyDown(KeyCode.R) && weaponHandler.currentGun.currentAmmo != weaponHandler.currentGun.ammoPerMag)
+        if (Input.GetKeyDown(KeyCode.R) && !weaponHandler.isReloading && weaponHandler.currentGun.currentAmmo != weaponHandler.currentGun.ammoPerMag)
         {
             weaponHandler.Reload();
         }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            playerController.Jump();
-        }
-
-
     }
 
     private void Update()

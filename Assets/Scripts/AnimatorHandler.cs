@@ -10,15 +10,18 @@ public class AnimatorHandler : MonoBehaviour
     [SerializeField] WeaponHandler weaponHandler;
     public PhotonView PV;
     [SerializeField] Animator animator;
+    [SerializeField] float movementBlendTreeSmooth;
 
 
     private void HandleAnimator()
     {
-        animator.SetFloat("vert", inputHandler.vert, 1f, Time.deltaTime * 15f);
-        animator.SetFloat("horz", inputHandler.horz, 1f, Time.deltaTime * 15f);
-        animator.SetBool("isGrounded", playerController.Grounded);
+        animator.SetFloat("vert", inputHandler.vert, 1f, Time.deltaTime * movementBlendTreeSmooth);
+        animator.SetFloat("horz", inputHandler.horz, 1f, Time.deltaTime * movementBlendTreeSmooth);
     }
-
+    public void SetBool(string name, bool isTrue)
+    {
+        animator.SetBool(name, isTrue);
+    }
     private void Update()
     {
         HandleAnimator();

@@ -16,22 +16,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [SerializeField] InputHandler inputHandler;
     [SerializeField] AnimatorHandler animatorHandler;
     [SerializeField] AudioClip hitClip;
-
     private PlayerHandler playerHandler;
 
     [Header("Settings")]
-    [SerializeField] float sprintSpeed, smoothTime, jumpForce;
-
+    [SerializeField] float sprintSpeed;
     private CharacterController characterController;
     private PhotonView PV;
 
-
     const float maxHealth = 100f;
     float currentHealth = maxHealth;
-    public int doubleJump = 1;
-
     public bool isDead = false;
-    public bool Grounded;
     public bool isMoving = false;
 
     #region Unitys
@@ -72,12 +66,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     private void Move()
     {
         Vector3 moveDir = new Vector3(inputHandler.horz, 0, inputHandler.vert);
-
-        moveDir *= sprintSpeed;
         moveDir = transform.TransformDirection(moveDir);
-        characterController.Move(moveDir * Time.deltaTime);
+        characterController.SimpleMove(moveDir * sprintSpeed);
 
-        if(characterController.velocity.magnitude > 1f)
+
+        if (characterController.velocity.magnitude > 1f)
         {
             isMoving = true;
         }
@@ -85,29 +78,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         {
             isMoving = false;
         }
-
     }
     private void Die()
     {
         GetComponentInChildren<SetupRagdoll>().Setup(true);
         playerHandler.Die();
-    }
-
-    public void Jump()
-    {
-        if (characterController.isGrounded)
-        {
-            animatorHandler.CrossFadeInFixedTime("Jump", 0.05f);
-        }
-        else if(characterController.isGrounded && doubleJump != 0)
-        {
-            animatorHandler.CrossFadeInFixedTime("Jump", 0.05f);
-            doubleJump = 0;
-        }
-        else if (!characterController.isGrounded)
-        {
-            return;
-        }
     }
     public void PlayHitSound()
     {
