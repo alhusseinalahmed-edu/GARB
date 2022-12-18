@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [SerializeField] AnimatorHandler animatorHandler;
     [SerializeField] AudioClip hitClip;
     private PlayerHandler playerHandler;
+    private Manager manager;
 
     [Header("Settings")]
     [SerializeField] float sprintSpeed;
@@ -31,14 +32,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     #region Unitys
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
-        PV = GetComponent<PhotonView>();
-        playerHandler = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerHandler>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //playerHandler = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerHandler>();
     }
     private void Start()
     {
+        manager = GameObject.Find("Manager").GetComponent<Manager>();
+        characterController = GetComponent<CharacterController>();
+        PV = GetComponent<PhotonView>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         if (PV.IsMine)
         {
             model.gameObject.SetActive(false);
@@ -81,8 +83,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     }
     private void Die()
     {
-        GetComponentInChildren<SetupRagdoll>().Setup(true);
-        playerHandler.Die();
+        //GetComponentInChildren<SetupRagdoll>().Setup(true);
+        //playerHandler.Die();
+        manager.SpawnPlayer();
+        PhotonNetwork.Destroy(gameObject);
+        
     }
     public void PlayHitSound()
     {
@@ -105,7 +110,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (currentHealth <= 0)
         {
             Die();
-            PlayerHandler.Find(info.Sender).GetKill();
+            //PlayerHandler.Find(info.Sender).GetKill();
         }
 
     }

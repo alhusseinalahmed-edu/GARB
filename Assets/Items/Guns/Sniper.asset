@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68e65fcd9dda1c94ebe0fb36de1e34f7, type: 3}
-  m_Name: Pump Shotgun
+  m_Name: Sniper
   m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 0}
   weaponType: 0
-  damage: 35
-  name: Pump
-  fireRate: 0.5
-  pellets: 5
-  weaponRange: 50
-  ammoPerMag: 6
-  reloadDuration: 1.15
+  damage: 150
+  name: Sniper
+  fireRate: 0.9
+  pellets: 1
+  weaponRange: 500
+  ammoPerMag: 20
+  reloadDuration: 2.16
   bulletSpread: 200
   runningBulletSpread: 200
-  normalBulletSpread: 25
-  currentAmmo: 6
-  ammoLeft: -34
-  shootSound: {fileID: 8300000, guid: 5d37fcf914afb4c4ba3c9503d47f610f, type: 3}
-  shootVolume: 1
-  RecoilRotationWeapon: {x: 150, y: 0, z: 0}
-  RecoilKickBack: {x: 0, y: 0.1, z: -0.6}
+  normalBulletSpread: 1
+  currentAmmo: 20
+  ammoLeft: 35
+  shootSound: {fileID: 8300000, guid: 77ce363388c828d4bb95f7c6136565fd, type: 3}
+  shootVolume: 0.4
+  RecoilRotationWeapon: {x: 0, y: 0, z: 0}
+  RecoilKickBack: {x: 0, y: 0.15, z: -0.7}

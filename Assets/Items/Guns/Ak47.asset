@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 0}
   weaponType: 0
-  damage: 25
+  damage: 30
   name: AK
-  fireRate: 0.1
+  fireRate: 0.15
   pellets: 1
   weaponRange: 100
   ammoPerMag: 30
   reloadDuration: 2.57
-  bulletSpread: 1
-  runningBulletSpread: 150
-  normalBulletSpread: 1
-  currentAmmo: 0
-  ammoLeft: -28
+  bulletSpread: 2
+  runningBulletSpread: 100
+  normalBulletSpread: 2
+  currentAmmo: 7
+  ammoLeft: 223
   shootSound: {fileID: 8300000, guid: 15f91a02d0db65548a15522c890ff759, type: 3}
   shootVolume: 1
   RecoilRotationWeapon: {x: 100, y: 0, z: 0}
-  RecoilKickBack: {x: 0, y: 0, z: -0.2}
+  RecoilKickBack: {x: 0, y: 0.05, z: -0.2}
