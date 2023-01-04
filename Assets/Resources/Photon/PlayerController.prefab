@@ -3696,6 +3696,7 @@ MonoBehaviour:
   animatorHandler: {fileID: 5119238525579843056}
   hitClip: {fileID: 8300000, guid: bd38fba26b2794a4a94a5398500ee3a5, type: 3}
   sprintSpeed: 8
+  currentHealth: 100
   isDead: 0
   isMoving: 0
 --- !u!114 &-1245023855887044078
