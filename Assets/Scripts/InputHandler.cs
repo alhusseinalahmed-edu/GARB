@@ -35,7 +35,7 @@ public class InputHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameObject.Find("Manager").GetComponent<Manager>().OpenInGameMenu(this);
+            GameManager.instance.OpenInGameMenu(this);
         }
         vert = Input.GetAxisRaw("Vertical");
         horz = Input.GetAxisRaw("Horizontal");

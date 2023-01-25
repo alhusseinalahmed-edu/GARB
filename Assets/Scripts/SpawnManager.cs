@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance;
-    [SerializeField] Transform[] spawnPoints;
+    [SerializeField]Transform[] spawnPoints;
     private void Awake()
     {
         Instance = this;
