@@ -47,6 +47,7 @@ MonoBehaviour:
   - RPC_GetKill
   - RPC_GameOverMenu
   - RPC_DestroyAll
+  - FootSteps_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

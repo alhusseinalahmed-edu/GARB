@@ -16,10 +16,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [SerializeField] InputHandler inputHandler;
     [SerializeField] AnimatorHandler animatorHandler;
     [SerializeField] AudioClip hitClip;
+    [SerializeField] AudioSource footstepsSource;
     private PlayerHandler playerHandler;
 
     [Header("Settings")]
-    [SerializeField] float sprintSpeed;
+    public float sprintSpeed;
     private CharacterController characterController;
     private PhotonView PV;
 
@@ -73,10 +74,24 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (characterController.velocity.magnitude > 1f)
         {
             isMoving = true;
+            PV.RPC("FootSteps_RPC", RpcTarget.All, isMoving);
         }
         else
         {
             isMoving = false;
+            PV.RPC("FootSteps_RPC", RpcTarget.All, isMoving);
+        }
+    }
+    [PunRPC]
+    private void FootSteps_RPC(bool isMoving)
+    {
+        if (isMoving)
+        {
+            footstepsSource.enabled = true;
+        }
+        else
+        {
+            footstepsSource.enabled = false;
         }
     }
     private void Die()

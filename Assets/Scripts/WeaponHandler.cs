@@ -66,6 +66,11 @@ public class WeaponHandler : MonoBehaviour
         {
             animatorHandler.UpdateAnimatorFloat("gunIndex", 1f);
         }
+        else if(currentGun.weaponType == WeaponType.Knife)
+        {
+            animatorHandler.UpdateAnimatorFloat("gunIndex", 2f);
+
+        }
         previousItemIndex = gunIndex;
         isAiming = false;
         ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
@@ -82,6 +87,14 @@ public class WeaponHandler : MonoBehaviour
         }
         if (PV.IsMine)
         {
+            if(currentGun.weaponType == WeaponType.Knife)
+            {
+                playerController.sprintSpeed = 14f;
+            }
+            else
+            {
+                playerController.sprintSpeed = 6f;
+            }
             foreach (GameObject go in fpsGuns)
             {
                 if (go.transform.name != currentGun.name)
@@ -119,17 +132,42 @@ public class WeaponHandler : MonoBehaviour
                 }
             }
         }
-        HandleBulletSpread();
-        RaycastHit hit;
-        for (int i = 0; i < Mathf.Max(1, currentGun.pellets); i++)
+        if(currentGun.weaponType != WeaponType.Knife)
         {
-            Vector3 t_spread = cam.transform.position + cam.transform.forward * 1000f;
-            t_spread += Random.Range(-currentGun.bulletSpread, currentGun.bulletSpread) * cam.transform.up;
-            t_spread += Random.Range(-currentGun.bulletSpread, currentGun.bulletSpread) * cam.transform.right;
-            t_spread -= cam.transform.position;
-            t_spread.Normalize();
 
-            if (Physics.Raycast(cam.transform.position, t_spread, out hit, currentGun.weaponRange))
+            HandleBulletSpread();
+            RaycastHit hit;
+            for (int i = 0; i < Mathf.Max(1, currentGun.pellets); i++)
+            {
+                Vector3 t_spread = cam.transform.position + cam.transform.forward * 1000f;
+                t_spread += Random.Range(-currentGun.bulletSpread, currentGun.bulletSpread) * cam.transform.up;
+                t_spread += Random.Range(-currentGun.bulletSpread, currentGun.bulletSpread) * cam.transform.right;
+                t_spread -= cam.transform.position;
+                t_spread.Normalize();
+
+                if (Physics.Raycast(cam.transform.position, t_spread, out hit, currentGun.weaponRange))
+                {
+                    Vector3 hitNormal = hit.normal;
+                    if (hit.collider.gameObject.GetComponent<PlayerController>())
+                    { // Friendly Fire
+                        hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(currentGun.damage);
+                        PV.RPC("RPC_BulletImpact", RpcTarget.All, hit.point, hitNormal, "Enemy");
+                        playerController.PlayHitSound();
+                    }
+                    else
+                    {
+                        PV.RPC("RPC_BulletImpact", RpcTarget.All, hit.point, hitNormal, hit.transform.gameObject.tag);
+                    }
+                }
+            }
+            recoilHandler.Fire();
+            currentGun.currentAmmo--;
+            ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
+        }
+        else if(currentGun.weaponType == WeaponType.Knife)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(cam.transform.position, transform.forward, out hit, currentGun.weaponRange))
             {
                 Vector3 hitNormal = hit.normal;
                 if (hit.collider.gameObject.GetComponent<PlayerController>())
@@ -144,12 +182,9 @@ public class WeaponHandler : MonoBehaviour
                 }
             }
         }
-        PV.RPC("RPC_ShootSound", RpcTarget.All);
-        animatorHandler.CrossFadeInFixedTime("Shoot", 0.01f);
-        recoilHandler.Fire();
-        nextShootTimer = Time.time + currentGun.fireRate;
-        currentGun.currentAmmo--;
-        ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
+            PV.RPC("RPC_ShootSound", RpcTarget.All);
+            animatorHandler.CrossFadeInFixedTime("Shoot", 0.01f);
+            nextShootTimer = Time.time + currentGun.fireRate;
     }
     public void Reload()
     {

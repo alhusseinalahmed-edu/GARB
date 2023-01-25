@@ -45,10 +45,6 @@ public class MenuManager : MonoBehaviour
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
-    public void SetMasterVolume(float volume)
-    {
-        audioMixer.SetFloat("MasterVolume", volume);
-    }
     public void SetFullScreen(bool istrue)
     {
         Screen.fullScreen = istrue;

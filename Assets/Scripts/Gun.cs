@@ -39,4 +39,5 @@ public enum WeaponType
 {
     Primary,
     Secondary,
+    Knife,
 }

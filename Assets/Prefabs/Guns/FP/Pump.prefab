@@ -645,6 +645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3954713680798622487}
+  - component: {fileID: 6440359340373095744}
   m_Layer: 0
   m_Name: Pump
   m_TagString: Untagged
@@ -673,6 +674,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6440359340373095744
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4443407479079008685}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 17f73dc8d8b96b24298b58b4227a0c45, type: 3}
+  m_Controller: {fileID: 9100000, guid: 545d7df459923144ea66e9a4a81099ac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4684016089654440826
 GameObject:
   m_ObjectHideFlags: 0
