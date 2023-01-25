@@ -23,14 +23,12 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] AnimatorHandler animatorHandler;
     [SerializeField] PlayerController playerController;
     [SerializeField] Animator weaponAnimator;
-    Manager manager;
 
     float nextShootTimer;
 
     [HideInInspector] public Gun currentGun;
     int previousItemIndex = -1;
     int gunIndex;
-    int kills = 0;
 
 
     public bool isAiming = false;
@@ -49,7 +47,6 @@ public class WeaponHandler : MonoBehaviour
         {
             PV.RPC("RPC_Equip", RpcTarget.All, 0);
         }
-        manager = GameObject.Find("Manager").GetComponent<Manager>();
     }
     public void Equip(int _index)
     {
@@ -136,9 +133,8 @@ public class WeaponHandler : MonoBehaviour
             {
                 Vector3 hitNormal = hit.normal;
                 if (hit.collider.gameObject.GetComponent<PlayerController>())
-                {
-                    PlayerController target = hit.collider.gameObject.GetComponent<PlayerController>();
-                    target.TakeDamage(currentGun.damage, PhotonNetwork.LocalPlayer.ActorNumber);
+                { // Friendly Fire
+                    hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(currentGun.damage);
                     PV.RPC("RPC_BulletImpact", RpcTarget.All, hit.point, hitNormal, "Enemy");
                     playerController.PlayHitSound();
                 }

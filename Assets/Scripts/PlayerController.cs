@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
     [Header("References")]
     [SerializeField] GameObject UI;
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private PhotonView PV;
 
     const float maxHealth = 100f;
-    public float currentHealth = maxHealth;
+    float currentHealth = maxHealth;
     public bool isDead = false;
     public bool isMoving = false;
 
@@ -97,12 +97,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     #region RPCs/Photon
 
-    public void TakeDamage(int damage, int actor)
+    public void TakeDamage(int damage)
     {
         PV.RPC("RPC_TakeDamage", RpcTarget.All, damage);
     }
     [PunRPC]
-    void RPC_TakeDamage(int damage)
+    void RPC_TakeDamage(int damage, PhotonMessageInfo info)
     {
         if (!PV.IsMine) return;
         currentHealth -= damage;
