@@ -160,7 +160,10 @@ public class WeaponHandler : MonoBehaviour
                     }
                 }
             }
+            // Weapon Kickback
             recoilHandler.Fire();
+            // Camera Recoil (Actual Recoil)
+
             currentGun.currentAmmo--;
             ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
         }

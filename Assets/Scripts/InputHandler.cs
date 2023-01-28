@@ -15,8 +15,8 @@ public class InputHandler : MonoBehaviour
 
     [HideInInspector] public float vert;
     [HideInInspector] public float horz;
-    float MouseX;
-    float MouseY;
+    public float MouseX;
+    public float MouseY;
     [HideInInspector] public bool isPaused = false;
     float verticalLookRotation;
     private void Look()
@@ -37,6 +37,7 @@ public class InputHandler : MonoBehaviour
         {
             GameManager.instance.OpenInGameMenu(this);
         }
+        if (isPaused) return;
         vert = Input.GetAxisRaw("Vertical");
         horz = Input.GetAxisRaw("Horizontal");
 
@@ -44,7 +45,6 @@ public class InputHandler : MonoBehaviour
         MouseY = Input.GetAxisRaw("Mouse Y");
 
 
-        if (isPaused) return;
         for (int i = 0; i < weaponHandler.guns.Length; i++)
         {
             

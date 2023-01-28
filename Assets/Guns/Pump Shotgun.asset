@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e65fcd9dda1c94ebe0fb36de1e34f7, type: 3}
+  m_Name: Pump Shotgun
+  m_EditorClassIdentifier: 
+  muzzleFlash: {fileID: 0}
+  weaponType: 0
+  damage: 15
+  name: Pump
+  fireRate: 0.35
+  pellets: 5
+  weaponRange: 50
+  ammoPerMag: 12
+  reloadDuration: 1.15
+  bulletSpread: 50
+  runningBulletSpread: 50
+  normalBulletSpread: 150
+  currentAmmo: 12
+  ammoLeft: 26
+  shootSound: {fileID: 8300000, guid: 5d37fcf914afb4c4ba3c9503d47f610f, type: 3}
+  shootVolume: 1
+  RecoilRotationWeapon: {x: 150, y: 0, z: 0}
+  RecoilKickBack: {x: 0, y: 0, z: -1}
