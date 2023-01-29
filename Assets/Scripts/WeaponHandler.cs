@@ -10,19 +10,19 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class WeaponHandler : MonoBehaviour
 {
     [Header("Refs")]
-    [SerializeField] GameObject[] impacts;
-    [SerializeField] TMP_Text ammoText;
-    [SerializeField] RecoilHandler recoilHandler;
-    [SerializeField] Camera cam;
-    [SerializeField] TMP_Text reloadText;
+    public GameObject[] impacts;
+    public TMP_Text ammoText;
+    public RecoilHandler recoilHandler;
+    public Camera cam;
+    public TMP_Text reloadText;
     public Gun[] guns;
     [SerializeField] AudioSource weaponSource;
     public PhotonView PV;
-    [SerializeField] GameObject[] fpsGuns;
-    [SerializeField] GameObject[] tpsGuns;
-    [SerializeField] AnimatorHandler animatorHandler;
-    [SerializeField] PlayerController playerController;
-    [SerializeField] Animator weaponAnimator;
+    public GameObject[] fpsGuns;
+    public GameObject[] tpsGuns;
+    public AnimatorHandler animatorHandler;
+    public PlayerController playerController;
+    public Animator weaponAnimator;
 
     float nextShootTimer;
 

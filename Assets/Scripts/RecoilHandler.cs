@@ -9,14 +9,6 @@ public class RecoilHandler : MonoBehaviour
     [SerializeField] WeaponHandler weaponHandler;
     [SerializeField] InputHandler inputHandler;
 
-    public bool isCamRecoilActive = false;
-    [Header("Camera Shit")]
-    public float rotationSpeed = 6f;
-    public float returnSpeed = 25f;
-    public bool aiming = false;
-    private Vector3 currentRotation;
-    private Vector3 Rot;
-
     [Header("Weapon Shit")]
     [SerializeField] Transform recoilPosition;
     [SerializeField] Transform rotationPoint;
@@ -24,13 +16,12 @@ public class RecoilHandler : MonoBehaviour
     [Header("Speed Settings:")]
     public float positionalRecoilSpeed = 8f;
     public float rotationalRecoilSpeed = 8f;
-
-    public float positionalReturnSpeed = 18f;
     public float rotationalReturnSpeed = 38f;
 
     Vector3 rotationalRecoil;
     Vector3 positionalRecoil;
     Vector3 weaponRot;
+
 
     private void FixedUpdate()
     {
@@ -42,10 +33,12 @@ public class RecoilHandler : MonoBehaviour
         weaponRot = Vector3.Slerp(weaponRot, rotationalRecoil, rotationalRecoilSpeed * Time.fixedDeltaTime);
         rotationPoint.localRotation = Quaternion.Euler(weaponRot);
 
+
     }
     public void Fire()
     {
         Vector3 RecoilKickBack = weaponHandler.currentGun.RecoilKickBack;
         positionalRecoil += new Vector3(Random.Range(-RecoilKickBack.x, RecoilKickBack.x), Random.Range(-RecoilKickBack.y, RecoilKickBack.y), RecoilKickBack.z);
+
     }
 }

@@ -8,6 +8,7 @@ public class InputHandler : MonoBehaviour
 {
     [Header("Refs")]
     [SerializeField] PlayerController playerController;
+    [SerializeField] AnimatorHandler animatorHandler;
     [SerializeField] WeaponHandler weaponHandler;
     [SerializeField] GameObject cameraHolder;
     [SerializeField] PhotonView PV;
@@ -60,6 +61,9 @@ public class InputHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R) && !weaponHandler.isReloading && weaponHandler.currentGun.currentAmmo != weaponHandler.currentGun.ammoPerMag)
         {
+            string state = animatorHandler.GetCurrentGunAnimation();
+            Debug.Log(state);
+            if (!state.Contains("Idle")) return;
             weaponHandler.Reload();
         }
     }

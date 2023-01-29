@@ -39,5 +39,12 @@ public class AnimatorHandler : MonoBehaviour
     {
         animator.SetFloat(name, value);
     }
+    public string GetCurrentGunAnimation()
+    {
+        Animator gunAnimator = weaponHandler.weaponAnimator;
+        AnimatorClipInfo[] currentClipInfo = gunAnimator.GetCurrentAnimatorClipInfo(0);
+        string currentClipName = currentClipInfo[0].clip.name;
+        return currentClipName;
+    }
 
 }

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject GameOverMenu;
     [SerializeField] PhotonView PV;
     public int MostKills;
+    public int killsToWin = 4;
 
     private void Awake()
     {
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             MostKills = kills;
         }
-        if(kills == 4)
+        if(kills == killsToWin)
         {
             EndGame(playerName);
         }
