@@ -33,6 +33,12 @@ public  class Gun : ScriptableObject
     public Vector3 RecoilRotationWeapon = new Vector3(10, 5, 7);
     public Vector3 RecoilKickBack = new Vector3(0.015f, 0f, -0.2f);
 
+    [Header("Viemodel Settings")]
+    public Vector3 Position;
+    public Quaternion Rotation;
+    public Vector3 ADS_Position;
+    public Quaternion ADS_Rotation;
+
 }
 
 public enum WeaponType
@@ -40,4 +46,5 @@ public enum WeaponType
     Primary,
     Secondary,
     Knife,
+    Sniper,
 }

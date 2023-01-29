@@ -16,8 +16,8 @@ public class InputHandler : MonoBehaviour
 
     [HideInInspector] public float vert;
     [HideInInspector] public float horz;
-    public float MouseX;
-    public float MouseY;
+    [HideInInspector] public float MouseX;
+    [HideInInspector] public float MouseY;
     [HideInInspector] public bool isPaused = false;
     float verticalLookRotation;
     private void Look()
@@ -59,10 +59,13 @@ public class InputHandler : MonoBehaviour
         {
             weaponHandler.Shoot();
         }
+        if(Input.GetMouseButtonDown(1) && !weaponHandler.isReloading)
+        {
+            weaponHandler.AimDownSights();
+        }
         if (Input.GetKeyDown(KeyCode.R) && !weaponHandler.isReloading && weaponHandler.currentGun.currentAmmo != weaponHandler.currentGun.ammoPerMag)
         {
             string state = animatorHandler.GetCurrentGunAnimation();
-            Debug.Log(state);
             if (!state.Contains("Idle")) return;
             weaponHandler.Reload();
         }

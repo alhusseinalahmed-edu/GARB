@@ -8,11 +8,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance;
+
+    [Header("Refs")]
     [SerializeField] GameObject InGameMenu;
     [SerializeField] GameObject GameOverMenu;
     [SerializeField] PhotonView PV;
-    public int MostKills;
-    public int killsToWin = 4;
+
+    
+    [HideInInspector] public int MostKills;
+
+    [Header("Settings")]
+    public int killsToWin = 5;
 
     private void Awake()
     {

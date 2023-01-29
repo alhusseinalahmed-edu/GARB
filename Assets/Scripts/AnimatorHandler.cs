@@ -5,14 +5,21 @@ using Photon.Pun;
 
 public class AnimatorHandler : MonoBehaviour
 {
-    [SerializeField] InputHandler inputHandler;
-    [SerializeField] PlayerController playerController;
-    [SerializeField] WeaponHandler weaponHandler;
+    [Header("Refs")]
+    public InputHandler inputHandler;
+    public PlayerController playerController;
+    public WeaponHandler weaponHandler;
     public PhotonView PV;
-    [SerializeField] Animator animator;
-    [SerializeField] float movementBlendTreeSmooth;
+    public Animator animator;
 
+    [Header("Settings")]
+    public float movementBlendTreeSmooth;
 
+    
+    private void Update()
+    {
+        HandleAnimator();
+    }
     private void HandleAnimator()
     {
         animator.SetFloat("vert", inputHandler.vert, 1f, Time.deltaTime * movementBlendTreeSmooth);
@@ -21,10 +28,6 @@ public class AnimatorHandler : MonoBehaviour
     public void SetBool(string name, bool isTrue)
     {
         animator.SetBool(name, isTrue);
-    }
-    private void Update()
-    {
-        HandleAnimator();
     }
     public void CrossFadeInFixedTime(string name, float transition)
     {
@@ -39,6 +42,8 @@ public class AnimatorHandler : MonoBehaviour
     {
         animator.SetFloat(name, value);
     }
+
+    // Local
     public string GetCurrentGunAnimation()
     {
         Animator gunAnimator = weaponHandler.weaponAnimator;

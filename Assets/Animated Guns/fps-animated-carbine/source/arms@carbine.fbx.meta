@@ -15,7 +15,22 @@ ModelImporter:
   - first:
       74: 4921348520742371288
     second: M4 Idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: arms
+    second: {fileID: 2100000, guid: 40984917a8edc13409492133f7c0aabf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: carbine
+    second: {fileID: 2100000, guid: 033afc37a5f7d9e43a4102593073dc66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lens
+    second: {fileID: 2100000, guid: cb093a1c92afb494b885ee311f8bed49, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

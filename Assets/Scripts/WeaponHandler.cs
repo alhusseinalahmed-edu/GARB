@@ -10,25 +10,29 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class WeaponHandler : MonoBehaviour
 {
     [Header("Refs")]
-    public GameObject[] impacts;
-    public TMP_Text ammoText;
-    public RecoilHandler recoilHandler;
-    public Camera cam;
-    public TMP_Text reloadText;
-    public Gun[] guns;
-    [SerializeField] AudioSource weaponSource;
-    public PhotonView PV;
-    public GameObject[] fpsGuns;
-    public GameObject[] tpsGuns;
     public AnimatorHandler animatorHandler;
     public PlayerController playerController;
-    public Animator weaponAnimator;
+    public RecoilHandler recoilHandler;
+    public TMP_Text ammoText;
+    public TMP_Text reloadText;
+    public Camera cam;
+    [SerializeField] AudioSource weaponSource;
+    public GameObject[] impacts;
+    public PhotonView PV;
+
+    [HideInInspector] public Animator weaponAnimator;
+
+    [Header("Guns")]
+    public GameObject[] fpsGuns;
+    public GameObject[] tpsGuns;
+    public Gun[] guns;
 
     float nextShootTimer;
 
     [HideInInspector] public Gun currentGun;
     int previousItemIndex = -1;
     int gunIndex;
+    Transform currentGunTranform;
 
 
     public bool isAiming = false;
@@ -46,6 +50,23 @@ public class WeaponHandler : MonoBehaviour
         if (PV.IsMine)
         {
             PV.RPC("RPC_Equip", RpcTarget.All, 0);
+        }
+    }
+    public void AimDownSights()
+    {
+        if (currentGunTranform == null) return;
+        if(isAiming)
+        {
+            isAiming = false;
+            currentGunTranform.localPosition = currentGun.Position;
+            currentGunTranform.localRotation = currentGun.Rotation;
+        }
+        else if (!isAiming)
+        {
+            isAiming = true;
+            currentGunTranform.localPosition = currentGun.ADS_Position;
+            currentGunTranform.localRotation = currentGun.ADS_Rotation;
+
         }
     }
     public void Equip(int _index)
@@ -105,6 +126,9 @@ public class WeaponHandler : MonoBehaviour
                 {
                     go.SetActive(true);
                     weaponAnimator = go.transform.GetComponent<Animator>();
+                    currentGunTranform = go.transform;
+                    currentGunTranform.localPosition = currentGun.Position;
+                    currentGunTranform.localRotation = currentGun.Rotation;
                 }
             }            
         }

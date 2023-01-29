@@ -7,33 +7,32 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
+    private PlayerHandler playerHandler;
     [Header("References")]
-    [SerializeField] GameObject UI;
-    [SerializeField] Image healthBarImage;
-    [SerializeField] AudioSource mainSource;
-    [SerializeField] Transform model;
+    [SerializeField] CharacterController characterController;
     [SerializeField] WeaponHandler weaponHandler;
     [SerializeField] InputHandler inputHandler;
     [SerializeField] AnimatorHandler animatorHandler;
+    [SerializeField] PhotonView PV;
+    [SerializeField] Transform model;
+    [SerializeField] GameObject UI;
+    [SerializeField] Image healthBarImage;
+
     [SerializeField] AudioClip hitClip;
+    [SerializeField] AudioSource mainSource;
     [SerializeField] AudioSource footstepsSource;
-    private PlayerHandler playerHandler;
 
     [Header("Settings")]
     public float sprintSpeed;
-    private CharacterController characterController;
-    private PhotonView PV;
 
     const float maxHealth = 100f;
     float currentHealth = maxHealth;
-    public bool isDead = false;
-    public bool isMoving = false;
+    [HideInInspector] public bool isDead = false;
+    [HideInInspector] public bool isMoving = false;
 
     #region Unitys
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
-        PV = GetComponent<PhotonView>();
         playerHandler = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerHandler>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -66,11 +65,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     private void Move()
     {
+        // Simple Movement
         Vector3 moveDir = new Vector3(inputHandler.horz, 0, inputHandler.vert);
         moveDir = transform.TransformDirection(moveDir);
         characterController.SimpleMove(moveDir * sprintSpeed);
 
-
+        // Footsteps
         if (characterController.velocity.magnitude > 1f)
         {
             isMoving = true;

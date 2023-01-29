@@ -16,17 +16,21 @@ MonoBehaviour:
   weaponType: 0
   damage: 35
   name: UMP
-  fireRate: 0.15
+  fireRate: 0.1
   pellets: 1
   weaponRange: 50
   ammoPerMag: 30
   reloadDuration: 2.12
-  bulletSpread: 50
+  bulletSpread: 2
   runningBulletSpread: 75
   normalBulletSpread: 2
-  currentAmmo: 12
-  ammoLeft: 26
+  currentAmmo: 30
+  ammoLeft: -4
   shootSound: {fileID: 8300000, guid: a970d7002155bb94e97f689e3bad40b8, type: 3}
   shootVolume: 1
   RecoilRotationWeapon: {x: 25, y: 0, z: 0}
   RecoilKickBack: {x: 0, y: 0, z: -0.05}
+  Position: {x: 0.14, y: 0.23, z: 0.2}
+  Rotation: {x: 0, y: 0.1305262, z: 0, w: 0.9914449}
+  ADS_Position: {x: 0, y: 0.28, z: 0.05}
+  ADS_Rotation: {x: 0.01256604, y: 0, z: 0, w: 0.999921}
