@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class WeaponHandler : MonoBehaviour
@@ -15,10 +16,13 @@ public class WeaponHandler : MonoBehaviour
     public RecoilHandler recoilHandler;
     public TMP_Text ammoText;
     public TMP_Text reloadText;
+    public Image crosshair;
     public Camera cam;
     [SerializeField] AudioSource weaponSource;
     public GameObject[] impacts;
     public PhotonView PV;
+    public ObjectPool objectPool;
+    public ObjectPool muzzleFlashesPool;
 
     [HideInInspector] public Animator weaponAnimator;
 
@@ -38,6 +42,19 @@ public class WeaponHandler : MonoBehaviour
     public bool isAiming = false;
     public bool isReloading = false;
 
+    // The starting field of view
+    public float startingFOV = 75.0f;
+
+    // The target field of view
+    public float aimFov = 65.0f;
+
+    // The speed of the FOV transition
+    public float transitionSpeed = 1.0f;
+
+    // The progress of the FOV transition (0-1)
+    private float transitionProgress = 0.0f;
+
+
     private void Awake()
     {
         foreach (Gun gun in guns)
@@ -50,7 +67,19 @@ public class WeaponHandler : MonoBehaviour
         if (PV.IsMine)
         {
             PV.RPC("RPC_Equip", RpcTarget.All, 0);
+            // Set the starting field of view
+            cam.fieldOfView = startingFOV;
         }
+    }
+    private void Update()
+    {
+        // Increase the transition progress
+        transitionProgress += Time.deltaTime * transitionSpeed;
+
+        // Clamp the transition progress between 0 and 1
+        transitionProgress = Mathf.Clamp01(transitionProgress);
+
+
     }
     public void AimDownSights()
     {
@@ -58,15 +87,19 @@ public class WeaponHandler : MonoBehaviour
         if(isAiming)
         {
             isAiming = false;
+            crosshair.enabled = true;
             currentGunTranform.localPosition = currentGun.Position;
             currentGunTranform.localRotation = currentGun.Rotation;
+            // Lerp between the starting and target FOV
+            cam.fieldOfView = Mathf.Lerp(aimFov, startingFOV, transitionProgress);
         }
         else if (!isAiming)
         {
             isAiming = true;
+            crosshair.enabled = false;
             currentGunTranform.localPosition = currentGun.ADS_Position;
             currentGunTranform.localRotation = currentGun.ADS_Rotation;
-
+            cam.fieldOfView = Mathf.Lerp(startingFOV, aimFov, transitionProgress);
         }
     }
     public void Equip(int _index)
@@ -190,6 +223,7 @@ public class WeaponHandler : MonoBehaviour
 
             currentGun.currentAmmo--;
             ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
+            PV.RPC("RPC_MuzzleFlash", RpcTarget.All);
         }
         else if(currentGun.weaponType == WeaponType.Knife)
         {
@@ -212,6 +246,28 @@ public class WeaponHandler : MonoBehaviour
             PV.RPC("RPC_ShootSound", RpcTarget.All);
             animatorHandler.CrossFadeInFixedTime("Shoot", 0.01f);
             nextShootTimer = Time.time + currentGun.fireRate;
+    }
+
+    [PunRPC]
+    void RPC_MuzzleFlash()
+    {
+        GameObject currentGun_TP = null;
+        foreach (GameObject go in tpsGuns)
+        {
+            if (go.transform.name == currentGun.name + "_TP")
+            {
+                currentGun_TP = go;
+            }
+        }
+        GameObject muzzleFlash = objectPool.GetPooledObject(1);
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.transform.position = currentGun_TP.transform.Find("MuzzleFlash").position;
+            muzzleFlash.transform.rotation = currentGun_TP.transform.Find("MuzzleFlash").rotation;
+            muzzleFlash.SetActive(true);
+        }
+        StartCoroutine(DisableBulletImpacts(muzzleFlash));
+
     }
     public void Reload()
     {
@@ -239,16 +295,19 @@ public class WeaponHandler : MonoBehaviour
     [PunRPC]
     void RPC_BulletImpact(Vector3 hitPosition, Vector3 hitNormal, string hitType)
     {
-        GameObject impact = impacts[0];
-        foreach (GameObject go in impacts)
+        GameObject bulletImpact = objectPool.GetPooledObject(0);
+        if (bulletImpact != null)
         {
-            if (hitType == go.name)
-            {
-                impact = go;
-            }
+            bulletImpact.transform.position = hitPosition;
+            bulletImpact.transform.rotation = Quaternion.LookRotation(hitNormal);
+            bulletImpact.SetActive(true);
         }
-        GameObject bulletImpact = Instantiate(impact, hitPosition, Quaternion.LookRotation(hitNormal));
-        Destroy(bulletImpact, 10f);
+        StartCoroutine(DisableBulletImpacts(bulletImpact));
+    }
+    IEnumerator DisableBulletImpacts(GameObject go)
+    {
+        yield return new WaitForSeconds(1);
+        go.SetActive(false);
     }
     [PunRPC]
     void RPC_ShootSound()

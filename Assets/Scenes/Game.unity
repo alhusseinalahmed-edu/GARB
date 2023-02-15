@@ -838,6 +838,7 @@ MonoBehaviour:
   GameOverMenu: {fileID: 1876182448}
   PV: {fileID: 619266748}
   MostKills: 0
+  killsToWin: 5
 --- !u!114 &619266748
 MonoBehaviour:
   m_ObjectHideFlags: 0
