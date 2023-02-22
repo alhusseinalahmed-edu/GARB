@@ -42,17 +42,12 @@ public class WeaponHandler : MonoBehaviour
     public bool isAiming = false;
     public bool isReloading = false;
 
-    // The starting field of view
-    public float startingFOV = 75.0f;
+    public float zoomFOV = 40.0f;
+    public float smoothTime = 0.1f;
 
-    // The target field of view
-    public float aimFov = 65.0f;
+    private float originalFOV;
 
-    // The speed of the FOV transition
-    public float transitionSpeed = 1.0f;
-
-    // The progress of the FOV transition (0-1)
-    private float transitionProgress = 0.0f;
+    private float currentVelocity = 0.0f;
 
 
     private void Awake()
@@ -68,22 +63,18 @@ public class WeaponHandler : MonoBehaviour
         {
             PV.RPC("RPC_Equip", RpcTarget.All, 0);
             // Set the starting field of view
-            cam.fieldOfView = startingFOV;
+            originalFOV = cam.fieldOfView;
         }
     }
     private void Update()
     {
-        // Increase the transition progress
-        transitionProgress += Time.deltaTime * transitionSpeed;
-
-        // Clamp the transition progress between 0 and 1
-        transitionProgress = Mathf.Clamp01(transitionProgress);
-
-
+        float targetFOV = isAiming ? zoomFOV : originalFOV;
+        cam.fieldOfView = Mathf.SmoothDamp(cam.fieldOfView, targetFOV, ref currentVelocity, smoothTime);
     }
     public void AimDownSights()
     {
         if (currentGunTranform == null) return;
+        if (currentGun.weaponType == WeaponType.Knife) return;
         if(isAiming)
         {
             isAiming = false;
@@ -91,7 +82,6 @@ public class WeaponHandler : MonoBehaviour
             currentGunTranform.localPosition = currentGun.Position;
             currentGunTranform.localRotation = currentGun.Rotation;
             // Lerp between the starting and target FOV
-            cam.fieldOfView = Mathf.Lerp(aimFov, startingFOV, transitionProgress);
         }
         else if (!isAiming)
         {
@@ -99,7 +89,6 @@ public class WeaponHandler : MonoBehaviour
             crosshair.enabled = false;
             currentGunTranform.localPosition = currentGun.ADS_Position;
             currentGunTranform.localRotation = currentGun.ADS_Rotation;
-            cam.fieldOfView = Mathf.Lerp(startingFOV, aimFov, transitionProgress);
         }
     }
     public void Equip(int _index)

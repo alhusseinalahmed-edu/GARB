@@ -24,7 +24,8 @@ MonoBehaviour:
   bulletSpread: 2
   runningBulletSpread: 75
   normalBulletSpread: 2
-  currentAmmo: 30
+  recoilPower: 2
+  currentAmmo: 27
   ammoLeft: -4
   shootSound: {fileID: 8300000, guid: a970d7002155bb94e97f689e3bad40b8, type: 3}
   shootVolume: 1

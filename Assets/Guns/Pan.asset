@@ -24,6 +24,7 @@ MonoBehaviour:
   bulletSpread: 0
   runningBulletSpread: 0
   normalBulletSpread: 0
+  recoilPower: 2
   currentAmmo: 1
   ammoLeft: 1
   shootSound: {fileID: 0}

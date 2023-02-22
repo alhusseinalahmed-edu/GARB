@@ -3953,10 +3953,10 @@ MonoBehaviour:
   inputHandler: {fileID: 2738951344121759016}
   recoilPosition: {fileID: 4411354588493167071}
   rotationPoint: {fileID: 4411354588493167071}
-  cameraHolder: {fileID: 3504666346382508792}
   positionalRecoilSpeed: 8
   rotationalRecoilSpeed: 8
   rotationalReturnSpeed: 38
+  cam: {fileID: 7162070784597269386}
 --- !u!136 &7500722275633640030
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4181,9 +4181,8 @@ MonoBehaviour:
   currentGun: {fileID: 0}
   isAiming: 0
   isReloading: 0
-  startingFOV: 75
-  aimFov: 65
-  transitionSpeed: 15
+  zoomFOV: 40
+  smoothTime: 0.1
 --- !u!114 &5119238525579843056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4519,6 +4518,7 @@ GameObject:
   - component: {fileID: 7162070784597269386}
   - component: {fileID: 169827017361689582}
   - component: {fileID: 464158124306210261}
+  - component: {fileID: 7826532880271775727}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -4593,6 +4593,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7460560713335231138}
   m_Enabled: 1
+--- !u!114 &7826532880271775727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7460560713335231138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb889b15a1a8ccf498d2780c242199a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRecoilAngle: 5
+  recoilSpeed: 200
+  returnSpeed: 10
+  weaponHandler: {fileID: 5471876724386942851}
 --- !u!1 &7506735220111420816
 GameObject:
   m_ObjectHideFlags: 0

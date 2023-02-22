@@ -24,9 +24,14 @@ MonoBehaviour:
   bulletSpread: 200
   runningBulletSpread: 50
   normalBulletSpread: 200
+  recoilPower: 2
   currentAmmo: 20
   ammoLeft: 120
   shootSound: {fileID: 8300000, guid: e0b2120a3b4cd4d489af9f71588c501f, type: 3}
   shootVolume: 1
   RecoilRotationWeapon: {x: 300, y: 0, z: 0}
   RecoilKickBack: {x: 0.5, y: 0, z: -0.35}
+  Position: {x: 0, y: 0, z: 0}
+  Rotation: {x: 0, y: 0, z: 0, w: 0}
+  ADS_Position: {x: 0, y: 0, z: 0}
+  ADS_Rotation: {x: 0, y: 0, z: 0, w: 0}

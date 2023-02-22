@@ -21,6 +21,7 @@ public  class Gun : ScriptableObject
     public float bulletSpread;
     public float runningBulletSpread = 50;
     public float normalBulletSpread = 25;
+    public float recoilPower = 200;
     public int currentAmmo;
     public int ammoLeft = 120;
 

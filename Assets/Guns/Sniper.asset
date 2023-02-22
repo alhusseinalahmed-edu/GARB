@@ -24,8 +24,9 @@ MonoBehaviour:
   bulletSpread: 25
   runningBulletSpread: 500
   normalBulletSpread: 25
-  currentAmmo: 5
-  ammoLeft: 47
+  recoilPower: 20
+  currentAmmo: 0
+  ammoLeft: 42
   shootSound: {fileID: 0}
   shootVolume: 1
   RecoilRotationWeapon: {x: 50, y: 0, z: 0}
