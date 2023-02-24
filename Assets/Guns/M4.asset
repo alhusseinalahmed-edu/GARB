@@ -21,13 +21,13 @@ MonoBehaviour:
   weaponRange: 100
   ammoPerMag: 30
   reloadDuration: 2
-  bulletSpread: 1
+  bulletSpread: 2
   runningBulletSpread: 2
   normalBulletSpread: 1
   recoilPower: 2
-  currentAmmo: 13
-  ammoLeft: -369
-  shootSound: {fileID: 8300000, guid: e0b2120a3b4cd4d489af9f71588c501f, type: 3}
+  currentAmmo: 14
+  ammoLeft: -390
+  shootSound: {fileID: 8300000, guid: 141ec45c179015640bc589a2442030f9, type: 3}
   shootVolume: 1
   RecoilRotationWeapon: {x: 100, y: 0, z: 0}
   RecoilKickBack: {x: 0, y: 0, z: -0.1}
