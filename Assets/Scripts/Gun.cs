@@ -24,7 +24,7 @@ public  class Gun : ScriptableObject
     public float recoilPower = 200;
     public int currentAmmo;
     public int ammoLeft = 120;
-
+    public int startingAmmo;
     [Header("Other")]
     public AudioClip shootSound;
     [Range(0f, 1f)]

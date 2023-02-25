@@ -46,17 +46,9 @@ public class WeaponHandler : MonoBehaviour
     public float smoothTime = 0.1f;
 
     private float originalFOV;
-
+    private float targetFOV = 0;
     private float currentVelocity = 0.0f;
 
-
-    private void Awake()
-    {
-        foreach (Gun gun in guns)
-        {
-            gun.currentAmmo = gun.ammoPerMag;
-        }
-    }
     private void Start()
     {
         if (PV.IsMine)
@@ -64,18 +56,27 @@ public class WeaponHandler : MonoBehaviour
             PV.RPC("RPC_Equip", RpcTarget.All, 0);
             // Set the starting field of view
             originalFOV = cam.fieldOfView;
+            foreach (Gun gun in guns)
+            {
+                gun.currentAmmo = gun.ammoPerMag;
+                gun.ammoLeft = gun.startingAmmo;
+            }
+            ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
+
         }
     }
     private void Update()
     {
-        float targetFOV = isAiming ? zoomFOV : originalFOV;
-        cam.fieldOfView = Mathf.SmoothDamp(cam.fieldOfView, targetFOV, ref currentVelocity, smoothTime);
+        if (targetFOV != 0)
+        {
+            cam.fieldOfView = Mathf.SmoothDamp(cam.fieldOfView, targetFOV, ref currentVelocity, smoothTime);
+        }
     }
     public void AimDownSights()
     {
         if (currentGunTranform == null) return;
         if (currentGun.weaponType == WeaponType.Knife) return;
-        if(isAiming)
+        if (isAiming)
         {
             isAiming = false;
             crosshair.enabled = true;
@@ -90,9 +91,14 @@ public class WeaponHandler : MonoBehaviour
             currentGunTranform.localPosition = currentGun.ADS_Position;
             currentGunTranform.localRotation = currentGun.ADS_Rotation;
         }
+        targetFOV = isAiming ? zoomFOV : originalFOV;
     }
     public void Equip(int _index)
     {
+        if(isAiming)
+        {
+            AimDownSights();
+        }    
         PV.RPC("RPC_Equip", RpcTarget.All, _index);
     }
     [PunRPC]
@@ -251,6 +257,7 @@ public class WeaponHandler : MonoBehaviour
         GameObject muzzleFlash = objectPool.GetPooledObject(1);
         if (muzzleFlash != null)
         {
+            muzzleFlash.transform.parent = currentGun_TP.transform;
             muzzleFlash.transform.position = currentGun_TP.transform.Find("MuzzleFlash").position;
             muzzleFlash.transform.rotation = currentGun_TP.transform.Find("MuzzleFlash").rotation;
             muzzleFlash.SetActive(true);
@@ -267,18 +274,31 @@ public class WeaponHandler : MonoBehaviour
     {
         if (PV.IsMine)
         {
-            isReloading = true;
-            weaponAnimator.CrossFadeInFixedTime("Reload", 0.01f);
-            weaponAnimator.SetBool("Reload", true);
-            reloadText.gameObject.SetActive(true);
-            yield return new WaitForSeconds(currentGun.reloadDuration);
-            isReloading = false;
-            weaponAnimator.SetBool("Reload", false);
-            reloadText.gameObject.SetActive(false);
-            int reloadAmount = currentGun.ammoPerMag - currentGun.currentAmmo;
-            currentGun.currentAmmo = currentGun.ammoPerMag;
-            currentGun.ammoLeft -= reloadAmount;
-            ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
+            if (currentGun.ammoLeft > 0)
+            {
+                isReloading = true;
+                weaponAnimator.CrossFadeInFixedTime("Reload", 0.01f);
+                weaponAnimator.SetBool("Reload", true);
+                reloadText.gameObject.SetActive(true);
+                yield return new WaitForSeconds(currentGun.reloadDuration);
+                isReloading = false;
+                weaponAnimator.SetBool("Reload", false);
+                reloadText.gameObject.SetActive(false);
+
+                int reloadAmount = currentGun.ammoPerMag - currentGun.currentAmmo;
+                if (currentGun.ammoLeft - reloadAmount > 0)
+                {
+                    currentGun.currentAmmo = currentGun.ammoPerMag;
+                    currentGun.ammoLeft -= reloadAmount;
+
+                }
+                else if(currentGun.currentAmmo + currentGun.ammoLeft < currentGun.ammoPerMag)
+                {
+                    currentGun.currentAmmo += currentGun.ammoLeft;
+                    currentGun.ammoLeft = 0;
+                }
+                ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
+            }
         }
     }
     [PunRPC]

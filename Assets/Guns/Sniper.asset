@@ -25,10 +25,11 @@ MonoBehaviour:
   runningBulletSpread: 500
   normalBulletSpread: 25
   recoilPower: 20
-  currentAmmo: 0
+  currentAmmo: 5
   ammoLeft: 42
+  startingAmmo: 24
   shootSound: {fileID: 0}
-  shootVolume: 1
+  shootVolume: 0.4
   RecoilRotationWeapon: {x: 50, y: 0, z: 0}
   RecoilKickBack: {x: 0, y: 0, z: -0.1}
   Position: {x: 0.14, y: 0.26, z: 0.25}

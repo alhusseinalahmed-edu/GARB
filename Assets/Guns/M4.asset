@@ -25,13 +25,14 @@ MonoBehaviour:
   runningBulletSpread: 2
   normalBulletSpread: 1
   recoilPower: 2
-  currentAmmo: 14
-  ammoLeft: -390
+  currentAmmo: 30
+  ammoLeft: -509
+  startingAmmo: 150
   shootSound: {fileID: 8300000, guid: 141ec45c179015640bc589a2442030f9, type: 3}
-  shootVolume: 1
+  shootVolume: 0.4
   RecoilRotationWeapon: {x: 100, y: 0, z: 0}
   RecoilKickBack: {x: 0, y: 0, z: -0.1}
-  Position: {x: 0.14, y: 0.19, z: 0.25}
+  Position: {x: 0.26, y: 0.19, z: 0.25}
   Rotation: {x: 0, y: 0.1305262, z: 0, w: 0.9914449}
   ADS_Position: {x: -0.005, y: 0.275, z: 0.2}
   ADS_Rotation: {x: 0, y: 0, z: 0, w: 0}

@@ -14,24 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 0}
   weaponType: 0
-  damage: 15
+  damage: 20
   name: Pump
   fireRate: 0.35
   pellets: 5
   weaponRange: 50
   ammoPerMag: 12
   reloadDuration: 1.15
-  bulletSpread: 150
-  runningBulletSpread: 50
-  normalBulletSpread: 150
+  bulletSpread: 25
+  runningBulletSpread: 25
+  normalBulletSpread: 25
   recoilPower: 15
-  currentAmmo: 9
-  ammoLeft: -38
+  currentAmmo: 3
+  ammoLeft: 36
+  startingAmmo: 36
   shootSound: {fileID: 8300000, guid: 68969f4d8bd7e374196f9b40d6700e37, type: 3}
-  shootVolume: 1
+  shootVolume: 0.4
   RecoilRotationWeapon: {x: 150, y: 0, z: 0}
   RecoilKickBack: {x: 0, y: 0, z: -1}
-  Position: {x: 0.14, y: 0.26, z: 0.3}
+  Position: {x: 0.26, y: 0.19, z: 0.3}
   Rotation: {x: 0, y: 0.1305262, z: 0, w: 0.9914449}
-  ADS_Position: {x: 0.0005, y: 0.415, z: 0.15}
-  ADS_Rotation: {x: 0, y: 0, z: 0, w: 0}
+  ADS_Position: {x: 0.0045, y: 0.4145, z: 0.15}
+  ADS_Rotation: {x: 0, y: 0.0040142466, z: 0, w: 0.99999195}
