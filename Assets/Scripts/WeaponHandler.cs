@@ -91,6 +91,7 @@ public class WeaponHandler : MonoBehaviour
             currentGunTranform.localPosition = currentGun.ADS_Position;
             currentGunTranform.localRotation = currentGun.ADS_Rotation;
         }
+        zoomFOV = currentGun.zoomFOV;
         targetFOV = isAiming ? zoomFOV : originalFOV;
     }
     public void Equip(int _index)
@@ -203,7 +204,6 @@ public class WeaponHandler : MonoBehaviour
                     if (hit.collider.gameObject.GetComponent<PlayerController>())
                     { // Friendly Fire
                         hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(currentGun.damage);
-                        PV.RPC("RPC_BulletImpact", RpcTarget.All, hit.point, hitNormal, "Enemy");
                         playerController.PlayHitSound();
                     }
                     else
@@ -229,7 +229,6 @@ public class WeaponHandler : MonoBehaviour
                 if (hit.collider.gameObject.GetComponent<PlayerController>())
                 { // Friendly Fire
                     hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(currentGun.damage);
-                    PV.RPC("RPC_BulletImpact", RpcTarget.All, hit.point, hitNormal, "Enemy");
                     playerController.PlayHitSound();
                 }
                 else

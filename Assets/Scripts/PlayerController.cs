@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [SerializeField] AudioSource mainSource;
     [SerializeField] AudioSource footstepsSource;
 
+    public GameObject hitmarker;
     [Header("Settings")]
     public float sprintSpeed;
 
@@ -102,6 +103,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     public void PlayHitSound()
     {
         mainSource.PlayOneShot(hitClip);
+
+        // Hitmarker Effect
+        hitmarker.SetActive(true);
+        Invoke("HideHitMarker", 0.1f);
+    }
+    void HideHitMarker()
+    {
+        hitmarker.SetActive(false);
     }
     #endregion
 

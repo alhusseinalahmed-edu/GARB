@@ -5,6 +5,7 @@ using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
 using System.Linq;
+using UnityEngine.UI;
 
 public class GameLauncher : MonoBehaviourPunCallbacks
 {
@@ -69,6 +70,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         PhotonNetwork.LoadLevel(1);
+        startGameButton.GetComponent<Button>().interactable = false;
     }
     public override void OnLeftRoom()
     {

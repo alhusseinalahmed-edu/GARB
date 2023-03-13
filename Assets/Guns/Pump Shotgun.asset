@@ -23,11 +23,12 @@ MonoBehaviour:
   reloadDuration: 1.15
   bulletSpread: 25
   runningBulletSpread: 25
-  normalBulletSpread: 25
+  normalBulletSpread: 15
   recoilPower: 15
-  currentAmmo: 3
+  currentAmmo: 12
   ammoLeft: 36
   startingAmmo: 36
+  zoomFOV: 40
   shootSound: {fileID: 8300000, guid: 68969f4d8bd7e374196f9b40d6700e37, type: 3}
   shootVolume: 0.4
   RecoilRotationWeapon: {x: 150, y: 0, z: 0}

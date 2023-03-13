@@ -16,19 +16,20 @@ MonoBehaviour:
   weaponType: 0
   damage: 100
   name: Sniper
-  fireRate: 0.5
+  fireRate: 1.17
   pellets: 1
   weaponRange: 150
   ammoPerMag: 5
   reloadDuration: 1.18
   bulletSpread: 25
-  runningBulletSpread: 500
-  normalBulletSpread: 25
+  runningBulletSpread: 25
+  normalBulletSpread: 1
   recoilPower: 20
-  currentAmmo: 5
-  ammoLeft: 42
+  currentAmmo: 2
+  ammoLeft: 19
   startingAmmo: 24
-  shootSound: {fileID: 0}
+  zoomFOV: 20
+  shootSound: {fileID: 8300000, guid: 10af696930e527d44b6259a1889dc0db, type: 3}
   shootVolume: 0.4
   RecoilRotationWeapon: {x: 50, y: 0, z: 0}
   RecoilKickBack: {x: 0, y: 0, z: -0.1}

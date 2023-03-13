@@ -25,6 +25,7 @@ public  class Gun : ScriptableObject
     public int currentAmmo;
     public int ammoLeft = 120;
     public int startingAmmo;
+    public float zoomFOV = 40f;
     [Header("Other")]
     public AudioClip shootSound;
     [Range(0f, 1f)]
