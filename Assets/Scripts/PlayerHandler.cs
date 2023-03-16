@@ -32,6 +32,9 @@ public class PlayerHandler : MonoBehaviour
     void CreateController()
     {
         kills = 0;
+        Hashtable hash = new Hashtable();
+        hash.Add("kills", kills);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         Transform spawnPoint = SpawnManager.Instance.GetSpawnPoint(); ;
         controller = PhotonNetwork.Instantiate(Path.Combine("Photon", "PlayerController"), spawnPoint.position, spawnPoint.rotation, 0, new object[] {PV.ViewID});
     }
