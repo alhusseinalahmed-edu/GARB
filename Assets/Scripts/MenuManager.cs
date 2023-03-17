@@ -41,13 +41,5 @@ public class MenuManager : MonoBehaviour
     {
         menu.Close();
     }
-    public void ChangeGraphicsQuality(int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(qualityIndex);
-    }
-    public void SetFullScreen(bool istrue)
-    {
-        Screen.fullScreen = istrue;
-    }
 
 }
