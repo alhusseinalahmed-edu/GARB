@@ -6,13 +6,19 @@ using System.IO;
 using Photon.Realtime;
 using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using TMPro;
+
 public class PlayerHandler : MonoBehaviour
 {
     PhotonView PV;
-
     GameObject controller;
-
     int kills = 0;
+
+    public float countdownDuration = 3f;
+    public TMP_Text countdownText;
+    private float currentTime;
+    private bool is_counting;
+
     void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -23,10 +29,31 @@ public class PlayerHandler : MonoBehaviour
         {
             CreateController();
         }
+        currentTime = countdownDuration;
     }
     void Update()
     {
-        
+        // Countdown
+        if(is_counting)
+        {
+            countdownText.gameObject.SetActive(true);
+            currentTime -= Time.deltaTime;
+            int minutes = Mathf.FloorToInt(currentTime / 60f);
+            int seconds = Mathf.FloorToInt(currentTime % 60f);
+
+            countdownText.text = "Respawning in => " + string.Format("{0:0}:{1:00}", minutes, seconds);
+
+            if (currentTime <= 0f)
+            {
+                currentTime = countdownDuration;
+                // Do something when the countdown reaches zero
+                CreateController();
+                is_counting = false;
+                countdownText.gameObject.SetActive(false);
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.V)) { Die(); }
     }
 
     void CreateController()
@@ -40,8 +67,9 @@ public class PlayerHandler : MonoBehaviour
     }
     public void Die()
     {
+        if (is_counting) return;
         PhotonNetwork.Destroy(controller);
-        CreateController();
+        is_counting = true;
     }
     public void GetKill()
     {
