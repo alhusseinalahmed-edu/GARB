@@ -18,6 +18,7 @@ public class WeaponHandler : MonoBehaviour
     public TMP_Text reloadText;
     public Image crosshair;
     public Camera cam;
+    public InputHandler inputHandler;
     [SerializeField] AudioSource weaponSource;
     public GameObject[] impacts;
     public PhotonView PV;
@@ -39,7 +40,6 @@ public class WeaponHandler : MonoBehaviour
     Transform currentGunTranform;
 
 
-    public bool isAiming = false;
     public bool isReloading = false;
 
     public float zoomFOV = 40.0f;
@@ -76,27 +76,27 @@ public class WeaponHandler : MonoBehaviour
     {
         if (currentGunTranform == null) return;
         if (currentGun.weaponType == WeaponType.Knife) return;
-        if (isAiming)
+        if (inputHandler.isAiming)
         {
-            isAiming = false;
+            inputHandler.isAiming = false;
             crosshair.enabled = true;
             currentGunTranform.localPosition = currentGun.Position;
             currentGunTranform.localRotation = currentGun.Rotation;
             // Lerp between the starting and target FOV
         }
-        else if (!isAiming)
+        else if (!inputHandler.isAiming)
         {
-            isAiming = true;
+            inputHandler.isAiming = true;
             crosshair.enabled = false;
             currentGunTranform.localPosition = currentGun.ADS_Position;
             currentGunTranform.localRotation = currentGun.ADS_Rotation;
         }
         zoomFOV = currentGun.zoomFOV;
-        targetFOV = isAiming ? zoomFOV : originalFOV;
+        targetFOV = inputHandler.isAiming ? zoomFOV : originalFOV;
     }
     public void Equip(int _index)
     {
-        if(isAiming)
+        if(inputHandler.isAiming)
         {
             AimDownSights();
         }    
@@ -122,7 +122,7 @@ public class WeaponHandler : MonoBehaviour
 
         }
         previousItemIndex = gunIndex;
-        isAiming = false;
+        inputHandler.isAiming = false;
         ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
         foreach (GameObject go in tpsGuns)
         {
@@ -337,7 +337,7 @@ public class WeaponHandler : MonoBehaviour
         }
         else
         {
-            isAiming = true;
+            inputHandler.isAiming = true;
             foreach (GameObject go in fpsGuns)
             {
                 if (go.transform.name == currentGun.name)

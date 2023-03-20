@@ -42,8 +42,6 @@ public class AnimatorHandler : MonoBehaviour
     {
         animator.SetFloat(name, value);
     }
-
-    // Local
     public string GetCurrentGunAnimation()
     {
         Animator gunAnimator = weaponHandler.weaponAnimator;

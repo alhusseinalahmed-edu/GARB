@@ -14,6 +14,8 @@ public class InputHandler : MonoBehaviour
     [SerializeField] PhotonView PV;
     [SerializeField] float mouseSensitivity;
 
+    public bool isAiming = false;
+
     [HideInInspector] public float vert;
     [HideInInspector] public float horz;
     [HideInInspector] public float MouseX;
