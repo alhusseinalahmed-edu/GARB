@@ -9,6 +9,7 @@ public class WeaponSway : MonoBehaviour
     public float lookMultiplier = 1f;
     private Vector3 initialPosition;
 
+
     public InputHandler inputHandler;
 
     

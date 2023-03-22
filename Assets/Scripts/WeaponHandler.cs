@@ -219,6 +219,7 @@ public class WeaponHandler : MonoBehaviour
             currentGun.currentAmmo--;
             ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
             PV.RPC("RPC_MuzzleFlash", RpcTarget.All);
+            SpawnLocalEffects();
         }
         else if(currentGun.weaponType == WeaponType.Knife)
         {
@@ -240,6 +241,23 @@ public class WeaponHandler : MonoBehaviour
             PV.RPC("RPC_ShootSound", RpcTarget.All);
             animatorHandler.CrossFadeInFixedTime("Shoot", 0.01f);
             nextShootTimer = Time.time + currentGun.fireRate;
+    }
+    void SpawnLocalEffects()
+    {
+        Transform Muzzle = currentGunTranform.Find("Muzzle");
+
+        if (Muzzle)
+        {
+            GameObject muzzleFlash = objectPool.GetPooledObject(1);
+            if (muzzleFlash != null)
+            {
+                muzzleFlash.transform.parent = Muzzle.transform;
+                muzzleFlash.transform.position = Muzzle.position;
+                muzzleFlash.transform.rotation = Muzzle.rotation;
+                muzzleFlash.SetActive(true);
+            }
+            StartCoroutine(DisableBulletImpacts(muzzleFlash));
+        }
     }
 
     [PunRPC]
