@@ -35,8 +35,15 @@ public class CameraRecoil : MonoBehaviour
 
         }
     }
-    public void Fire()
+    public void Fire(bool aim)
     {
-        currentRecoilAngle += weaponHandler.currentGun.recoilPower;
+        if(aim)
+        {
+            currentRecoilAngle += weaponHandler.currentGun.recoilPower * 0.6f;
+        }
+        else
+        {
+            currentRecoilAngle += weaponHandler.currentGun.recoilPower;
+        }
     }
 }

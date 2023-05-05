@@ -1009,7 +1009,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2863369668723185265}
   m_Layer: 0
-  m_Name: M4_TP
+  m_Name: M4A1_TP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

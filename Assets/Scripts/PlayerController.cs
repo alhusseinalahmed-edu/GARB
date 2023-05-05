@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     float currentHealth = maxHealth;
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool isMoving = false;
+    private float verticalVelocity;
+    private float maxVelocity = 5f;
 
     #region Unitys
     private void Awake()
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     }
     private void Start()
     {
+        Application.targetFrameRate = 144;
         if (PV.IsMine)
         {
             model.gameObject.SetActive(false);
@@ -66,12 +69,24 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 
     private void Move()
     {
-        // Simple Movement
-        Vector3 moveDir = new Vector3(inputHandler.horz, 0, inputHandler.vert);
-        moveDir = transform.TransformDirection(moveDir);
-        characterController.SimpleMove(moveDir * sprintSpeed);
+        verticalVelocity -= 9 * Time.deltaTime;
+        if (characterController.isGrounded)
+        {
+            verticalVelocity = -5f;
+            if (Input.GetKey(KeyCode.Space))
+            {
+                verticalVelocity = 5;
+            }
+        }
+        else if (characterController.velocity.y == 0)
+        {
+            verticalVelocity = characterController.velocity.y - 9 * Time.deltaTime;
+        }
+        Vector3 localVelocity = characterController.velocity;
+        Vector2 velocity = PlaneVelocity(new Vector2(localVelocity.x, localVelocity.z));
+        Vector3 worldVelocity = new Vector3(velocity.x, verticalVelocity, velocity.y);
+        characterController.Move(Time.deltaTime * worldVelocity);
 
-        // Footsteps
         if (characterController.velocity.magnitude > 1f)
         {
             isMoving = true;
@@ -83,6 +98,39 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
             PV.RPC("FootSteps_RPC", RpcTarget.All, isMoving);
         }
     }
+
+    private Vector2 PlaneVelocity(Vector2 velocity)
+    {
+        Vector3 localDirection = transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+        Vector2 wishDirection = new Vector2(localDirection.x, localDirection.z);
+        float currentMaxVelocity = .65f;
+        if (characterController.isGrounded)
+        {
+            currentMaxVelocity = maxVelocity;
+            velocity = Friction(velocity);
+        }
+
+        float currentVelocity = Vector2.Dot(velocity, wishDirection);
+        float acceleration = Mathf.Clamp(currentMaxVelocity - currentVelocity, 0, maxVelocity * 10 * Time.deltaTime);
+
+        return velocity + acceleration * wishDirection;
+    }
+
+    private Vector2 Friction(Vector2 velocity)
+    {
+        float friction = velocity.magnitude * 5f;
+        float actualFriction = friction < 15 ? 15 : friction;
+        Vector2 newVelocity = velocity - (velocity.normalized * actualFriction * Time.deltaTime);
+        if (Vector2.Dot(newVelocity, velocity) < 0)
+        {
+            return Vector2.zero;
+        }
+        else
+        {
+            return newVelocity;
+        }
+    }
+
     [PunRPC]
     private void FootSteps_RPC(bool isMoving)
     {

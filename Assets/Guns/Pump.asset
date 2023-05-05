@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68e65fcd9dda1c94ebe0fb36de1e34f7, type: 3}
-  m_Name: Pump Shotgun
+  m_Name: Pump
   m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 0}
   weaponType: 0
@@ -21,19 +21,21 @@ MonoBehaviour:
   weaponRange: 50
   ammoPerMag: 12
   reloadDuration: 1.15
-  bulletSpread: 25
-  runningBulletSpread: 25
-  normalBulletSpread: 15
-  recoilPower: 15
-  currentAmmo: 12
+  currentAmmo: 11
   ammoLeft: 36
   startingAmmo: 36
   zoomFOV: 40
-  shootSound: {fileID: 8300000, guid: 68969f4d8bd7e374196f9b40d6700e37, type: 3}
-  shootVolume: 0.4
+  weaponSounds:
+  - {fileID: 8300000, guid: c4e29a8b7d18261478624acd9676cfa4, type: 3}
+  - {fileID: 8300000, guid: 68969f4d8bd7e374196f9b40d6700e37, type: 3}
+  weaponVolume: 1
   RecoilRotationWeapon: {x: 150, y: 0, z: 0}
-  RecoilKickBack: {x: 0, y: 0, z: -1}
-  Position: {x: 0.26, y: 0.19, z: 0.3}
+  RecoilKickBack: {x: 0, y: 0, z: -0.5}
+  recoilPower: 15
+  bulletSpread: 0
+  runningBulletSpread: 25
+  normalBulletSpread: 0
+  Position: {x: 0.26, y: 0.15, z: 0.4}
   Rotation: {x: 0, y: 0.1305262, z: 0, w: 0.9914449}
   ADS_Position: {x: 0.0045, y: 0.4145, z: 0.15}
   ADS_Rotation: {x: 0, y: 0.0040142466, z: 0, w: 0.99999195}

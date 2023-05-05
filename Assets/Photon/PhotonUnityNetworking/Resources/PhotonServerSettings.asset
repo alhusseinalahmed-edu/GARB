@@ -49,6 +49,7 @@ MonoBehaviour:
   - RPC_DestroyAll
   - FootSteps_RPC
   - RPC_MuzzleFlash
+  - RPC_PlayWeaponSound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

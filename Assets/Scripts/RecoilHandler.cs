@@ -33,10 +33,10 @@ private void FixedUpdate()
         weaponRot = Vector3.Slerp(weaponRot, rotationalRecoil, rotationalRecoilSpeed * Time.fixedDeltaTime);
         rotationPoint.localRotation = Quaternion.Euler(weaponRot);
     }
-    public void Fire()
+    public void Fire(bool aim)
     {
         Vector3 RecoilKickBack = weaponHandler.currentGun.RecoilKickBack;
         positionalRecoil += new Vector3(Random.Range(-RecoilKickBack.x, RecoilKickBack.x), Random.Range(-RecoilKickBack.y, RecoilKickBack.y), RecoilKickBack.z);
-        GetComponentInChildren<CameraRecoil>().Fire();
+        GetComponentInChildren<CameraRecoil>().Fire(aim);
     }
 }

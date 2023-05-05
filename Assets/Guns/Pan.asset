@@ -21,17 +21,18 @@ MonoBehaviour:
   weaponRange: 2
   ammoPerMag: 1
   reloadDuration: 0
-  bulletSpread: 0
-  runningBulletSpread: 0
-  normalBulletSpread: 0
-  recoilPower: 2
   currentAmmo: 1
   ammoLeft: 1
   startingAmmo: 1
-  shootSound: {fileID: 0}
-  shootVolume: 0.4
+  zoomFOV: 40
+  weaponSounds: []
+  weaponVolume: 0
   RecoilRotationWeapon: {x: 250, y: 0, z: 0}
   RecoilKickBack: {x: 0, y: 0, z: -0.2}
+  recoilPower: 2
+  bulletSpread: 0
+  runningBulletSpread: 0
+  normalBulletSpread: 0
   Position: {x: 0.15, y: 0.2, z: 0.5}
   Rotation: {x: 0, y: 0.21643962, z: 0, w: 0.976296}
   ADS_Position: {x: 0.15, y: 0.2, z: 0.5}

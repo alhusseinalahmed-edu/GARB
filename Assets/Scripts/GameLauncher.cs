@@ -35,6 +35,10 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         instance = this;
         PhotonNetwork.ConnectUsingSettings();
     }
+    public void CreateOrJoinRoom()
+    {
+        PhotonNetwork.JoinRandomRoom();
+    }
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
@@ -77,6 +81,11 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     {
         MenuManager.instance.OpenMenu("titleMenu");
 
+    }
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        MenuManager.instance.OpenMenu("errorMenu");
+        errorText.text = message;
     }
     public override void OnJoinedRoom()
     {

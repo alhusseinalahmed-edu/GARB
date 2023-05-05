@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e65fcd9dda1c94ebe0fb36de1e34f7, type: 3}
+  m_Name: M4A1
+  m_EditorClassIdentifier: 
+  muzzleFlash: {fileID: 0}
+  weaponType: 0
+  damage: 20
+  name: M4A1
+  fireRate: 0.09
+  pellets: 1
+  weaponRange: 100
+  ammoPerMag: 30
+  reloadDuration: 2
+  currentAmmo: 0
+  ammoLeft: 150
+  startingAmmo: 150
+  zoomFOV: 35
+  weaponSounds:
+  - {fileID: 8300000, guid: c4e29a8b7d18261478624acd9676cfa4, type: 3}
+  - {fileID: 8300000, guid: 141ec45c179015640bc589a2442030f9, type: 3}
+  weaponVolume: 1
+  RecoilRotationWeapon: {x: 100, y: 0, z: 0}
+  RecoilKickBack: {x: 0, y: 0, z: -0.05}
+  recoilPower: 2
+  bulletSpread: 2
+  runningBulletSpread: 2
+  normalBulletSpread: 0
+  Position: {x: 0.26, y: 0.15, z: 0.2}
+  Rotation: {x: 0, y: 0.1305262, z: 0, w: 0.9914449}
+  ADS_Position: {x: -0.0032, y: 0.275, z: 0.2}
+  ADS_Rotation: {x: 0, y: 0, z: 0, w: 0}

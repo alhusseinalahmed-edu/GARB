@@ -79,7 +79,7 @@ public class WeaponHandler : MonoBehaviour
         if (inputHandler.isAiming)
         {
             inputHandler.isAiming = false;
-            crosshair.enabled = true;
+            //crosshair.enabled = true;
             currentGunTranform.localPosition = currentGun.Position;
             currentGunTranform.localRotation = currentGun.Rotation;
             // Lerp between the starting and target FOV
@@ -87,7 +87,7 @@ public class WeaponHandler : MonoBehaviour
         else if (!inputHandler.isAiming)
         {
             inputHandler.isAiming = true;
-            crosshair.enabled = false;
+            //crosshair.enabled = false;
             currentGunTranform.localPosition = currentGun.ADS_Position;
             currentGunTranform.localRotation = currentGun.ADS_Rotation;
         }
@@ -96,10 +96,10 @@ public class WeaponHandler : MonoBehaviour
     }
     public void Equip(int _index)
     {
-        if(inputHandler.isAiming)
+        if (inputHandler.isAiming)
         {
             AimDownSights();
-        }    
+        }
         PV.RPC("RPC_Equip", RpcTarget.All, _index);
     }
     [PunRPC]
@@ -108,15 +108,15 @@ public class WeaponHandler : MonoBehaviour
         if (_index == previousItemIndex) return;
         gunIndex = _index;
         currentGun = guns[gunIndex];
-        if(currentGun.weaponType == WeaponType.Primary)
+        if (currentGun.weaponType == WeaponType.Primary)
         {
             animatorHandler.UpdateAnimatorFloat("gunIndex", 0f);
         }
-        else if(currentGun.weaponType == WeaponType.Secondary)
+        else if (currentGun.weaponType == WeaponType.Secondary)
         {
             animatorHandler.UpdateAnimatorFloat("gunIndex", 1f);
         }
-        else if(currentGun.weaponType == WeaponType.Knife)
+        else if (currentGun.weaponType == WeaponType.Knife)
         {
             animatorHandler.UpdateAnimatorFloat("gunIndex", 2f);
 
@@ -126,7 +126,7 @@ public class WeaponHandler : MonoBehaviour
         ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
         foreach (GameObject go in tpsGuns)
         {
-            if (go.transform.name != currentGun.name +"_TP")
+            if (go.transform.name != currentGun.name + "_TP")
             {
                 go.SetActive(false);
             }
@@ -137,9 +137,9 @@ public class WeaponHandler : MonoBehaviour
         }
         if (PV.IsMine)
         {
-            if(currentGun.weaponType == WeaponType.Knife)
+            if (currentGun.weaponType == WeaponType.Knife)
             {
-                playerController.sprintSpeed = 14f;
+                playerController.sprintSpeed = 35f;
             }
             else
             {
@@ -159,16 +159,21 @@ public class WeaponHandler : MonoBehaviour
                     currentGunTranform.localPosition = currentGun.Position;
                     currentGunTranform.localRotation = currentGun.Rotation;
                 }
-            }            
+            }
         }
     }
     public void Shoot()
     {
         if (nextShootTimer > Time.time) return;
-        if (currentGun.currentAmmo <= 0) return;
+        if (currentGun.currentAmmo <= 0)
+        {
+            PV.RPC("RPC_PlayWeaponSound", RpcTarget.All, "Out Of Ammo");
+            nextShootTimer = Time.time + currentGun.fireRate * 2;
+            return;
+        }
         if (PV.IsMine)
         {
-            if(weaponAnimator != null)
+            if (weaponAnimator != null)
             {
                 weaponAnimator.CrossFadeInFixedTime("Shoot", 0.01f);
 
@@ -185,7 +190,7 @@ public class WeaponHandler : MonoBehaviour
                 }
             }
         }
-        if(currentGun.weaponType != WeaponType.Knife)
+        if (currentGun.weaponType != WeaponType.Knife)
         {
 
             HandleBulletSpread();
@@ -213,7 +218,8 @@ public class WeaponHandler : MonoBehaviour
                 }
             }
             // Weapon Kickback
-            recoilHandler.Fire();
+
+            recoilHandler.Fire(inputHandler.isAiming);
             // Camera Recoil (Actual Recoil)
 
             currentGun.currentAmmo--;
@@ -221,7 +227,7 @@ public class WeaponHandler : MonoBehaviour
             PV.RPC("RPC_MuzzleFlash", RpcTarget.All);
             SpawnLocalEffects();
         }
-        else if(currentGun.weaponType == WeaponType.Knife)
+        else if (currentGun.weaponType == WeaponType.Knife)
         {
             RaycastHit hit;
             if (Physics.Raycast(cam.transform.position, transform.forward, out hit, currentGun.weaponRange))
@@ -238,9 +244,9 @@ public class WeaponHandler : MonoBehaviour
                 }
             }
         }
-            PV.RPC("RPC_ShootSound", RpcTarget.All);
-            animatorHandler.CrossFadeInFixedTime("Shoot", 0.01f);
-            nextShootTimer = Time.time + currentGun.fireRate;
+        PV.RPC("RPC_PlayWeaponSound", RpcTarget.All, currentGun.name + " Shoot");
+        animatorHandler.CrossFadeInFixedTime("Shoot", 0.01f);
+        nextShootTimer = Time.time + currentGun.fireRate;
     }
     void SpawnLocalEffects()
     {
@@ -309,7 +315,7 @@ public class WeaponHandler : MonoBehaviour
                     currentGun.ammoLeft -= reloadAmount;
 
                 }
-                else if(currentGun.currentAmmo + currentGun.ammoLeft < currentGun.ammoPerMag)
+                else if (currentGun.currentAmmo + currentGun.ammoLeft < currentGun.ammoPerMag)
                 {
                     currentGun.currentAmmo += currentGun.ammoLeft;
                     currentGun.ammoLeft = 0;
@@ -336,10 +342,17 @@ public class WeaponHandler : MonoBehaviour
         go.SetActive(false);
     }
     [PunRPC]
-    void RPC_ShootSound()
+    void RPC_PlayWeaponSound(string clipName)
     {
-        weaponSource.PlayOneShot(currentGun.shootSound);
-        weaponSource.volume = currentGun.shootVolume;
+        foreach(AudioClip clip in currentGun.weaponSounds)
+        {
+            if(clip.name == clipName)
+            {
+                weaponSource.PlayOneShot(clip);
+                weaponSource.volume = currentGun.weaponVolume;
+
+            }
+        }
     }
     public void HandleBulletSpread()
     {

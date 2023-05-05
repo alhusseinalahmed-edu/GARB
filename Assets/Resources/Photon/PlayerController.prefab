@@ -984,7 +984,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4411354588493167071}
-  - component: {fileID: 9136613833309009252}
   m_Layer: 0
   m_Name: RotationPoint
   m_TagString: Untagged
@@ -1012,24 +1011,6 @@ Transform:
   m_Father: {fileID: 6912346299207797272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9136613833309009252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878338069978939658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a71ca4b9a57c1248b2aab2bd26cf677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amount: 0.06
-  maxAmount: 0.12
-  smoothAmount: 6
-  moveMultiplier: 0.05
-  lookMultiplier: 1
-  inputHandler: {fileID: 2738951344121759016}
 --- !u!1 &1896736939343681258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,6 +1561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6912346299207797272}
+  - component: {fileID: 9132431043044756430}
   m_Layer: 0
   m_Name: GunHolder
   m_TagString: Untagged
@@ -1603,6 +1585,24 @@ Transform:
   m_Father: {fileID: 7162070784597269386}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9132431043044756430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513338440328698339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a71ca4b9a57c1248b2aab2bd26cf677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0.06
+  maxAmount: 0.08
+  smoothAmount: 6
+  moveMultiplier: 0.05
+  lookMultiplier: 1
+  inputHandler: {fileID: 2738951344121759016}
 --- !u!1 &2549859027438147178
 GameObject:
   m_ObjectHideFlags: 0
@@ -4108,7 +4108,7 @@ MonoBehaviour:
   mainSource: {fileID: 166563442056779840}
   footstepsSource: {fileID: 4961105135658718431}
   hitmarker: {fileID: 2955300841882396687}
-  sprintSpeed: 8
+  sprintSpeed: 2
   isDead: 0
   isMoving: 0
 --- !u!114 &-1245023855887044078
@@ -4545,11 +4545,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  DopplerLevel: 2
+  MinDistance: 0
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -6335,7 +6335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6446969421646358138, guid: 245eded8555fe394aa0922a3db0cb817, type: 3}
       propertyPath: m_Name
-      value: AK
+      value: AKM
       objectReference: {fileID: 0}
     - target: {fileID: 6446969421646358138, guid: 245eded8555fe394aa0922a3db0cb817, type: 3}
       propertyPath: m_IsActive
@@ -6362,7 +6362,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2460445712105278058, guid: 391e27512f9f02c4782ca25d9e4a014a, type: 3}
       propertyPath: m_Name
-      value: M4
+      value: M4A1
       objectReference: {fileID: 0}
     - target: {fileID: 2460445712105278058, guid: 391e27512f9f02c4782ca25d9e4a014a, type: 3}
       propertyPath: m_IsActive
@@ -6813,7 +6813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7724274777661763268, guid: b3dd97ec07590644eae8d4092be3f806, type: 3}
       propertyPath: m_Name
-      value: AK_TP
+      value: AKM_TP
       objectReference: {fileID: 0}
     - target: {fileID: 7724274777661763268, guid: b3dd97ec07590644eae8d4092be3f806, type: 3}
       propertyPath: m_IsActive
@@ -6944,7 +6944,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 033afc37a5f7d9e43a4102593073dc66, type: 2}
     - target: {fileID: 9074826093659213870, guid: 5c745362beaaeb548af5938b342558c9, type: 3}
       propertyPath: m_Name
-      value: M4_TP
+      value: M4A1_TP
       objectReference: {fileID: 0}
     - target: {fileID: 9074826093659213870, guid: 5c745362beaaeb548af5938b342558c9, type: 3}
       propertyPath: m_IsActive

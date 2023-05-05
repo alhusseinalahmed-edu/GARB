@@ -18,22 +18,22 @@ public  class Gun : ScriptableObject
     public float weaponRange = 100f;
     public int ammoPerMag = 30;
     public float reloadDuration = 2;
-    public float bulletSpread;
-    public float runningBulletSpread = 50;
-    public float normalBulletSpread = 25;
-    public float recoilPower = 200;
     public int currentAmmo;
     public int ammoLeft = 120;
     public int startingAmmo;
     public float zoomFOV = 40f;
     [Header("Other")]
-    public AudioClip shootSound;
+    public AudioClip[] weaponSounds;
     [Range(0f, 1f)]
-    public float shootVolume;
+    public float weaponVolume;
 
     [Header("Recoil Settings:")]
     public Vector3 RecoilRotationWeapon = new Vector3(10, 5, 7);
     public Vector3 RecoilKickBack = new Vector3(0.015f, 0f, -0.2f);
+    public float recoilPower = 200;
+    public float bulletSpread;
+    public float runningBulletSpread = 50;
+    public float normalBulletSpread = 25;
 
     [Header("Viemodel Settings")]
     public Vector3 Position;
