@@ -4212,6 +4212,8 @@ MonoBehaviour:
     LayerIndex: 0
   - SynchronizeType: 2
     LayerIndex: 1
+  - SynchronizeType: 0
+    LayerIndex: 2
 --- !u!82 &166563442056779840
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4389,7 +4391,9 @@ MonoBehaviour:
   weaponHandler: {fileID: 5471876724386942851}
   PV: {fileID: 6823493545006358621}
   animator: {fileID: 5865079929864282414}
-  movementBlendTreeSmooth: 10
+  headTransform: {fileID: 3822063358396988813}
+  fpsCamera: {fileID: 169827017361689582}
+  movementBlendTreeSmooth: 7
 --- !u!114 &2738951344121759016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4448,6 +4452,8 @@ MonoBehaviour:
   - objectToPool: {fileID: 108086, guid: 547c2e12da8d4214098216299e70a3ba, type: 3}
     amountToPool: 50
   - objectToPool: {fileID: 6411948306645857030, guid: cacb755be7fad9749b127a9dcb22710b, type: 3}
+    amountToPool: 50
+  - objectToPool: {fileID: 151174, guid: e3c9439885f011549a6460a1f4da82dc, type: 3}
     amountToPool: 50
 --- !u!114 &7378911042651332152
 MonoBehaviour:
@@ -4546,7 +4552,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 2
-  MinDistance: 0
+  MinDistance: 1
   MaxDistance: 100
   Pan2D: 0
   rolloffMode: 0
@@ -5520,7 +5526,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

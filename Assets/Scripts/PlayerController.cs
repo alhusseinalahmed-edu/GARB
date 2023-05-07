@@ -60,6 +60,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     {
         if (!PV.IsMine) return;
         Move();
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            Die();
+        }
 
     }
     #endregion

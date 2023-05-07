@@ -11,11 +11,14 @@ public class AnimatorHandler : MonoBehaviour
     public WeaponHandler weaponHandler;
     public PhotonView PV;
     public Animator animator;
-
+    public Transform headTransform;
+    public Camera fpsCamera;
     [Header("Settings")]
     public float movementBlendTreeSmooth;
 
-    
+    private void Start()
+    {
+    }
     private void Update()
     {
         HandleAnimator();

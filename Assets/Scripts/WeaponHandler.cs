@@ -207,13 +207,18 @@ public class WeaponHandler : MonoBehaviour
                 {
                     Vector3 hitNormal = hit.normal;
                     if (hit.collider.gameObject.GetComponent<PlayerController>())
-                    { // Friendly Fire
+                    { 
                         hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(currentGun.damage);
                         playerController.PlayHitSound();
+                        PV.RPC("RPC_SpawnDecal", RpcTarget.All, hit.point, hitNormal, 2);
+                    }
+                    else if(hit.collider.gameObject.GetComponent<Rigidbody>())
+                    {
+                        hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(hit.transform.forward * 20f, ForceMode.Impulse);
                     }
                     else
                     {
-                        PV.RPC("RPC_BulletImpact", RpcTarget.All, hit.point, hitNormal, hit.transform.gameObject.tag);
+                        PV.RPC("RPC_SpawnDecal", RpcTarget.All, hit.point, hitNormal, 0);
                     }
                 }
             }
@@ -240,7 +245,7 @@ public class WeaponHandler : MonoBehaviour
                 }
                 else
                 {
-                    PV.RPC("RPC_BulletImpact", RpcTarget.All, hit.point, hitNormal, hit.transform.gameObject.tag);
+                    PV.RPC("RPC_SpawnDecal", RpcTarget.All, hit.point, hitNormal, 0);
                 }
             }
         }
@@ -262,7 +267,7 @@ public class WeaponHandler : MonoBehaviour
                 muzzleFlash.transform.rotation = Muzzle.rotation;
                 muzzleFlash.SetActive(true);
             }
-            StartCoroutine(DisableBulletImpacts(muzzleFlash));
+            StartCoroutine(DisableDecals(muzzleFlash));
         }
     }
 
@@ -285,7 +290,7 @@ public class WeaponHandler : MonoBehaviour
             muzzleFlash.transform.rotation = currentGun_TP.transform.Find("MuzzleFlash").rotation;
             muzzleFlash.SetActive(true);
         }
-        StartCoroutine(DisableBulletImpacts(muzzleFlash));
+        StartCoroutine(DisableDecals(muzzleFlash));
 
     }
     public void Reload()
@@ -325,18 +330,18 @@ public class WeaponHandler : MonoBehaviour
         }
     }
     [PunRPC]
-    void RPC_BulletImpact(Vector3 hitPosition, Vector3 hitNormal, string hitType)
+    void RPC_SpawnDecal(Vector3 hitPosition, Vector3 hitNormal, int hitType)
     {
-        GameObject bulletImpact = objectPool.GetPooledObject(0);
-        if (bulletImpact != null)
+        GameObject decal = objectPool.GetPooledObject(hitType);
+        if (decal != null)
         {
-            bulletImpact.transform.position = hitPosition;
-            bulletImpact.transform.rotation = Quaternion.LookRotation(hitNormal);
-            bulletImpact.SetActive(true);
+            decal.transform.position = hitPosition;
+            decal.transform.rotation = Quaternion.LookRotation(hitNormal);
+            decal.SetActive(true);
         }
-        StartCoroutine(DisableBulletImpacts(bulletImpact));
+        StartCoroutine(DisableDecals(decal));
     }
-    IEnumerator DisableBulletImpacts(GameObject go)
+    IEnumerator DisableDecals(GameObject go)
     {
         yield return new WaitForSeconds(1);
         go.SetActive(false);
@@ -344,6 +349,7 @@ public class WeaponHandler : MonoBehaviour
     [PunRPC]
     void RPC_PlayWeaponSound(string clipName)
     {
+        Debug.Log(clipName);
         foreach(AudioClip clip in currentGun.weaponSounds)
         {
             if(clip.name == clipName)

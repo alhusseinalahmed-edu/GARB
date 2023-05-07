@@ -50,6 +50,10 @@ MonoBehaviour:
   - FootSteps_RPC
   - RPC_MuzzleFlash
   - RPC_PlayWeaponSound
+  - HeadLookAtCameraDirection
+  - RPC_SpawnDecal
+  - RagdollCorpse
+  - RPC_ShowCorpse
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

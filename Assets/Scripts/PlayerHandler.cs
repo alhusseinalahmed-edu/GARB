@@ -34,7 +34,7 @@ public class PlayerHandler : MonoBehaviour
     void Update()
     {
         // Countdown
-        if(is_counting)
+        if (is_counting)
         {
             countdownText.gameObject.SetActive(true);
             currentTime -= Time.deltaTime;
@@ -63,13 +63,23 @@ public class PlayerHandler : MonoBehaviour
         hash.Add("kills", kills);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         Transform spawnPoint = SpawnManager.Instance.GetSpawnPoint(); ;
-        controller = PhotonNetwork.Instantiate(Path.Combine("Photon", "PlayerController"), spawnPoint.position, spawnPoint.rotation, 0, new object[] {PV.ViewID});
+        controller = PhotonNetwork.Instantiate(Path.Combine("Photon", "PlayerController"), spawnPoint.position, spawnPoint.rotation, 0, new object[] { PV.ViewID });
     }
     public void Die()
     {
         if (is_counting) return;
+        PV.RPC("RagdollCorpse", RpcTarget.All);
         PhotonNetwork.Destroy(controller);
         is_counting = true;
+    }
+    [PunRPC]
+    void RagdollCorpse( )
+    {
+        Transform model = controller.transform.Find("Model");
+        model.SetParent(null);
+        model.gameObject.SetActive(true);
+        Camera.main.transform.position = model.transform.position + new Vector3(0, 10f, -2f);
+        Camera.main.transform.LookAt(model);
     }
     public void GetKill()
     {

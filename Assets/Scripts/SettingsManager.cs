@@ -34,7 +34,7 @@ public class SettingsManager : MonoBehaviour
         bool result = mixer.GetFloat(volumeParameterName, out mixerVolume);
         if (result)
         {
-            float sliderValue = Mathf.InverseLerp(-80f, 0f, mixerVolume);
+            float sliderValue = Mathf.InverseLerp(-60f, 0f, mixerVolume);
             volumeSlider.value = sliderValue;
         }
         // Populate texture quality dropdown with available options
@@ -116,7 +116,7 @@ public class SettingsManager : MonoBehaviour
     public void OnVolumeSliderChanged(float sliderValue)
     {
         // Convert the slider value to a mixer volume value and set it on the mixer
-        float mixerVolume = Mathf.Lerp(-80f, 0f, sliderValue);
+        float mixerVolume = Mathf.Lerp(-60f, 0f, sliderValue);
         mixer.SetFloat(volumeParameterName, mixerVolume);
     }
 
