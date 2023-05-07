@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 0}
   weaponType: 2
-  damage: 50
+  damage: 100
   name: Pan
-  fireRate: 0.2
+  fireRate: 0.5
   pellets: 1
   weaponRange: 2
   ammoPerMag: 1
@@ -25,6 +25,7 @@ MonoBehaviour:
   ammoLeft: 1
   startingAmmo: 1
   zoomFOV: 40
+  movementSpeedMultiplier: 1
   weaponSounds: []
   weaponVolume: 0
   RecoilRotationWeapon: {x: 250, y: 0, z: 0}

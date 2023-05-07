@@ -4111,6 +4111,8 @@ MonoBehaviour:
   sprintSpeed: 2
   isDead: 0
   isMoving: 0
+  maxVelocity: 5
+  defaultVelocity: 5
 --- !u!114 &-1245023855887044078
 MonoBehaviour:
   m_ObjectHideFlags: 0

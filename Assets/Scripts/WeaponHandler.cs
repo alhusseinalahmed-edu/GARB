@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -137,14 +138,8 @@ public class WeaponHandler : MonoBehaviour
         }
         if (PV.IsMine)
         {
-            if (currentGun.weaponType == WeaponType.Knife)
-            {
-                playerController.sprintSpeed = 35f;
-            }
-            else
-            {
-                playerController.sprintSpeed = 6f;
-            }
+            playerController.maxVelocity = playerController.defaultVelocity * currentGun.movementSpeedMultiplier;
+
             foreach (GameObject go in fpsGuns)
             {
                 if (go.transform.name != currentGun.name)

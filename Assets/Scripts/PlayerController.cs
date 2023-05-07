@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool isMoving = false;
     private float verticalVelocity;
-    private float maxVelocity = 5f;
+    public float maxVelocity = 5f;
+    public float defaultVelocity = 5f;
 
     #region Unitys
     private void Awake()
