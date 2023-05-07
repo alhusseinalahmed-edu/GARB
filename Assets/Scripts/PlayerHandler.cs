@@ -8,7 +8,7 @@ using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using TMPro;
 
-public class PlayerHandler : MonoBehaviour
+public class PlayerHandler : MonoBehaviourPunCallbacks
 {
     PhotonView PV;
     GameObject controller;
@@ -23,6 +23,7 @@ public class PlayerHandler : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
     }
+
     private void Start()
     {
         if (PV.IsMine)
@@ -31,6 +32,7 @@ public class PlayerHandler : MonoBehaviour
         }
         currentTime = countdownDuration;
     }
+
     void Update()
     {
         // Countdown
@@ -65,26 +67,37 @@ public class PlayerHandler : MonoBehaviour
         Transform spawnPoint = SpawnManager.Instance.GetSpawnPoint(); ;
         controller = PhotonNetwork.Instantiate(Path.Combine("Photon", "PlayerController"), spawnPoint.position, spawnPoint.rotation, 0, new object[] { PV.ViewID });
     }
+
     public void Die()
     {
         if (is_counting) return;
-        PV.RPC("RagdollCorpse", RpcTarget.All);
+
+        PV.RPC("RagdollCorpse", RpcTarget.All, PV.ViewID, controller.transform.position, controller.transform.rotation);
+
         PhotonNetwork.Destroy(controller);
         is_counting = true;
     }
+
     [PunRPC]
-    void RagdollCorpse( )
+    void RagdollCorpse(int viewID, Vector3 deathPos, Quaternion deathRot)
     {
-        Transform model = controller.transform.Find("Model");
-        model.SetParent(null);
-        model.gameObject.SetActive(true);
-        Camera.main.transform.position = model.transform.position + new Vector3(0, 10f, -2f);
-        Camera.main.transform.LookAt(model);
-    }
+        PhotonView corpsePV = PhotonView.Find(viewID);
+        GameObject player = corpsePV.gameObject;
+        GameObject ragdoll = Instantiate(Resources.Load<GameObject>("Photon/Ragdoll"), deathPos, deathRot);
+        
+        if(PV.IsMine)
+        {
+            Camera.main.transform.position = ragdoll.transform.position + new Vector3(0, 15f, -2f);
+            Camera.main.transform.LookAt(ragdoll.transform.position);
+
+        }
+    }   
+
     public void GetKill()
     {
         PV.RPC("RPC_GetKill", PV.Owner);
     }
+
     [PunRPC]
     void RPC_GetKill()
     {
