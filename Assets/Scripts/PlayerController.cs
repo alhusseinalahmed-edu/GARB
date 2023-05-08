@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     }
     private void Start()
     {
-        Application.targetFrameRate = 144;
         if (PV.IsMine)
         {
             model.gameObject.SetActive(false);
