@@ -17,6 +17,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     [Header("Text")]
     [SerializeField] TMP_Text errorText;
     [SerializeField] TMP_Text roomNameText;
+    [SerializeField] TMP_Text statusText;
 
     [Header("Transforms")]
     [SerializeField] Transform roomListContent;
@@ -28,12 +29,22 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject startGameButton;
     public void OnUsernameInputValueChanged()
     {
-        PhotonNetwork.NickName = playerNameInput.text;
+        if (!string.IsNullOrEmpty(playerNameInput.text) && playerNameInput.text.Length > 1 && !string.IsNullOrWhiteSpace(playerNameInput.text))
+        {
+            PlayerPrefs.SetString("PlayerUsername", playerNameInput.text);
+            PhotonNetwork.NickName = playerNameInput.text;
+        }
+        else
+        {
+            statusText.text = "Please enter a valid username!";
+        }
     }
     private void Awake()
     {
         instance = this;
         PhotonNetwork.ConnectUsingSettings();
+        statusText.text = "Connecting to the server....";
+        playerNameInput.characterLimit = 15;
     }
     public void CreateOrJoinRoom()
     {
@@ -42,15 +53,22 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
-        Debug.Log("Connected to master");
         PhotonNetwork.AutomaticallySyncScene = true;
+        statusText.text = "Connected to the server!";
     }
     public override void OnJoinedLobby()
     {
         MenuManager.instance.OpenMenu("titleMenu");
-        Debug.Log("Joined Lobby");
-        PhotonNetwork.NickName = "Player" + Random.Range(0, 1000).ToString("0000");
-        playerNameInput.text = PhotonNetwork.NickName;
+        if(PlayerPrefs.HasKey("PlayerUsername"))
+        {
+            PhotonNetwork.NickName = PlayerPrefs.GetString("PlayerUsername");
+            playerNameInput.text = PhotonNetwork.NickName;
+        }
+        else
+        {
+            PhotonNetwork.NickName = "Player" + Random.Range(0, 1000).ToString("0000");
+            playerNameInput.text = PhotonNetwork.NickName;
+        }
     }
     public void CreateRoom()
     {

@@ -4413,7 +4413,6 @@ MonoBehaviour:
   weaponHandler: {fileID: 5471876724386942851}
   cameraHolder: {fileID: 6982158064285998820}
   PV: {fileID: 6823493545006358621}
-  mouseSensitivity: 2
   isAiming: 0
   vert: 0
   horz: 0

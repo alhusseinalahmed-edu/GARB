@@ -12,7 +12,6 @@ public class InputHandler : MonoBehaviour
     [SerializeField] WeaponHandler weaponHandler;
     [SerializeField] GameObject cameraHolder;
     [SerializeField] PhotonView PV;
-    [SerializeField] float mouseSensitivity;
 
     public bool isAiming = false;
 
@@ -25,11 +24,13 @@ public class InputHandler : MonoBehaviour
     private void Look()
     {
         if (isPaused) return;
-        verticalLookRotation += MouseY * mouseSensitivity;
+        float mouseXSensitivity = PlayerPrefs.GetFloat("MouseXSensitivity");
+        float mouseYSensitivity = PlayerPrefs.GetFloat("MouseYSensitivity");
+        verticalLookRotation += MouseY * mouseYSensitivity;
         verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90, 90);
 
 
-        transform.Rotate(Vector3.up * MouseX * mouseSensitivity);
+        transform.Rotate(Vector3.up * MouseX * mouseXSensitivity);
         cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
 
     }
