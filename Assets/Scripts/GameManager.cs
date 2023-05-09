@@ -26,23 +26,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         instance = this;
     }
 
-    public void OpenInGameMenu(InputHandler inputHandler)
-    {
-        if (!InGameMenu.activeSelf)
-        {
-            InGameMenu.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            inputHandler.isPaused = true; 
-        }
-        else
-        {
-            InGameMenu.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            inputHandler.isPaused = false;
-        }
-    }
     public void CheckKills(int kills, string playerName)
     {
         if(kills > MostKills)

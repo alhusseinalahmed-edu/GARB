@@ -21,11 +21,12 @@ MonoBehaviour:
   weaponRange: 150
   ammoPerMag: 5
   reloadDuration: 1.18
-  currentAmmo: 5
+  currentAmmo: 4
   ammoLeft: 24
   startingAmmo: 24
   zoomFOV: 20
   movementSpeedMultiplier: 1.25
+  zoomSensitivity: 0.5
   weaponSounds:
   - {fileID: 8300000, guid: c4e29a8b7d18261478624acd9676cfa4, type: 3}
   - {fileID: 8300000, guid: 10af696930e527d44b6259a1889dc0db, type: 3}
@@ -33,7 +34,7 @@ MonoBehaviour:
   RecoilRotationWeapon: {x: 50, y: 0, z: 0}
   RecoilKickBack: {x: 0, y: 0, z: -0.1}
   recoilPower: 20
-  bulletSpread: 25
+  bulletSpread: 0
   runningBulletSpread: 25
   normalBulletSpread: 0
   Position: {x: 0.14, y: 0.2, z: 0.25}

@@ -16,7 +16,6 @@ public class WeaponHandler : MonoBehaviour
     public PlayerController playerController;
     public RecoilHandler recoilHandler;
     public TMP_Text ammoText;
-    public TMP_Text reloadText;
     public Image crosshair;
     public Camera cam;
     public InputHandler inputHandler;
@@ -25,6 +24,8 @@ public class WeaponHandler : MonoBehaviour
     public PhotonView PV;
     public ObjectPool objectPool;
     public ObjectPool muzzleFlashesPool;
+
+    public GameObject[] iconList;
 
     [HideInInspector] public Animator weaponAnimator;
 
@@ -80,15 +81,13 @@ public class WeaponHandler : MonoBehaviour
         if (inputHandler.isAiming)
         {
             inputHandler.isAiming = false;
-            //crosshair.enabled = true;
             currentGunTranform.localPosition = currentGun.Position;
             currentGunTranform.localRotation = currentGun.Rotation;
-            // Lerp between the starting and target FOV
+
         }
         else if (!inputHandler.isAiming)
         {
             inputHandler.isAiming = true;
-            //crosshair.enabled = false;
             currentGunTranform.localPosition = currentGun.ADS_Position;
             currentGunTranform.localRotation = currentGun.ADS_Rotation;
         }
@@ -155,6 +154,20 @@ public class WeaponHandler : MonoBehaviour
                     currentGunTranform.localRotation = currentGun.Rotation;
                 }
             }
+            // Change icon
+            foreach (GameObject icon in iconList)
+            {
+                if (icon.name == currentGun.name + " Icon")
+                {
+                    icon.SetActive(true);
+
+                }
+                else
+                {
+                    icon.SetActive(false);
+                }
+            }
+
         }
     }
     public void Shoot()
@@ -302,11 +315,9 @@ public class WeaponHandler : MonoBehaviour
                 isReloading = true;
                 weaponAnimator.CrossFadeInFixedTime("Reload", 0.01f);
                 weaponAnimator.SetBool("Reload", true);
-                reloadText.gameObject.SetActive(true);
                 yield return new WaitForSeconds(currentGun.reloadDuration);
                 isReloading = false;
                 weaponAnimator.SetBool("Reload", false);
-                reloadText.gameObject.SetActive(false);
 
                 int reloadAmount = currentGun.ammoPerMag - currentGun.currentAmmo;
                 if (currentGun.ammoLeft - reloadAmount > 0)

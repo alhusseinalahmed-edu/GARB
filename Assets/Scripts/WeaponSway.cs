@@ -49,6 +49,7 @@ public class WeaponSway : MonoBehaviour
         }
         else
         {
+            if (inputHandler.mouseXSensitivity == 0 || inputHandler.mouseYSensitivity == 0) return;
             movementX = -inputHandler.MouseX * amount;
             movementY = -inputHandler.MouseY * amount;
             movementX = Mathf.Clamp(movementX, -maxAmount * lookMultiplier, maxAmount * lookMultiplier);

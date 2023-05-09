@@ -21,11 +21,12 @@ MonoBehaviour:
   weaponRange: 50
   ammoPerMag: 12
   reloadDuration: 1.15
-  currentAmmo: 11
+  currentAmmo: 12
   ammoLeft: 36
   startingAmmo: 36
   zoomFOV: 40
   movementSpeedMultiplier: 1
+  zoomSensitivity: 0.75
   weaponSounds:
   - {fileID: 8300000, guid: c4e29a8b7d18261478624acd9676cfa4, type: 3}
   - {fileID: 8300000, guid: 68969f4d8bd7e374196f9b40d6700e37, type: 3}
