@@ -58,14 +58,4 @@ public class GameManager : MonoBehaviourPunCallbacks
         Cursor.lockState = CursorLockMode.None;
         GameOverMenu.transform.Find("Winner").GetComponent<TMP_Text>().text = "The winner is " + playerName;
     }
-    public void LeaveRoom()
-    {
-        PhotonNetwork.AutomaticallySyncScene = false;
-        PhotonNetwork.LeaveRoom();
-        Destroy(RoomManager.Instance.gameObject);
-    }
-    public override void OnLeftRoom()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
 }

@@ -7,6 +7,7 @@ using Photon.Realtime;
 using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerHandler : MonoBehaviourPunCallbacks
 {
@@ -113,4 +114,15 @@ public class PlayerHandler : MonoBehaviourPunCallbacks
     {
         return FindObjectsOfType<PlayerHandler>().SingleOrDefault(x => x.PV.Owner == player);
     }
+    public void LeaveRoom()
+    {
+        PhotonNetwork.AutomaticallySyncScene = false;
+        PhotonNetwork.LeaveRoom();
+        Destroy(RoomManager.Instance.gameObject);
+    }
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }

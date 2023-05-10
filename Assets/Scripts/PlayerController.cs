@@ -185,6 +185,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         }
 
     }
+    public void LeaveRoom()
+    {
+        playerHandler.LeaveRoom();
+    }
 
     #endregion
 }
