@@ -117,6 +117,11 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("ShadowQuality", shadowQualityIndex);
         QualitySettings.shadows = (ShadowQuality)shadowQualityIndex;
     }
+
+    public void SetResolution(int width, int height)
+    {
+        Screen.SetResolution(width, height, Screen.fullScreen);
+    }
     public void Reset()
     {
         //SetFullScreen(true);
