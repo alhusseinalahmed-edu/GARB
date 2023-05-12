@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
@@ -55,7 +56,6 @@ public class WeaponHandler : MonoBehaviour
     {
         if (PV.IsMine)
         {
-            PV.RPC("RPC_Equip", RpcTarget.All, 0);
             // Set the starting field of view
             originalFOV = cam.fieldOfView;
             foreach (Gun gun in guns)
@@ -239,6 +239,7 @@ public class WeaponHandler : MonoBehaviour
             ammoText.text = currentGun.currentAmmo.ToString() + "/" + currentGun.ammoLeft;
             PV.RPC("RPC_MuzzleFlash", RpcTarget.All);
             SpawnLocalEffects();
+            PV.RPC("RPC_PlayWeaponSound", RpcTarget.All, currentGun.name + " Shoot");
         }
         else if (currentGun.weaponType == WeaponType.Knife)
         {
@@ -251,13 +252,9 @@ public class WeaponHandler : MonoBehaviour
                     hit.collider.gameObject.GetComponent<IDamagable>()?.TakeDamage(currentGun.damage);
                     playerController.PlayHitSound();
                 }
-                else
-                {
-                    PV.RPC("RPC_SpawnDecal", RpcTarget.All, hit.point, hitNormal, 0);
-                }
+                PV.RPC("RPC_PlayWeaponSound", RpcTarget.All, currentGun.name + " Shoot");
             }
         }
-        PV.RPC("RPC_PlayWeaponSound", RpcTarget.All, currentGun.name + " Shoot");
         animatorHandler.CrossFadeInFixedTime("Shoot", 0.01f);
         nextShootTimer = Time.time + currentGun.fireRate;
     }

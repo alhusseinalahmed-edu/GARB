@@ -407,10 +407,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75604148115a7d949aeabdb10ab3aba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InGameMenu: {fileID: 0}
-  GameOverMenu: {fileID: 1876182448}
-  PV: {fileID: 619266748}
-  MostKills: 0
+  gameOverMenu: {fileID: 1876182448}
+  PV: {fileID: 0}
+  mostKills: 0
   killsToWin: 5
 --- !u!114 &619266748
 MonoBehaviour:

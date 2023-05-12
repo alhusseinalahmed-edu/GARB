@@ -20,6 +20,10 @@ public class PlayerHandler : MonoBehaviourPunCallbacks
     private float currentTime;
     private bool is_counting;
 
+    public float ragdollDestroyTimer = 10f;
+
+    public GameObject ragdoll;
+
     void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -56,42 +60,34 @@ public class PlayerHandler : MonoBehaviourPunCallbacks
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.V)) { Die(); }
     }
 
     void CreateController()
     {
-        kills = 0;
         Hashtable hash = new Hashtable();
         hash.Add("kills", kills);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         Transform spawnPoint = SpawnManager.Instance.GetSpawnPoint(); ;
         controller = PhotonNetwork.Instantiate(Path.Combine("Photon", "PlayerController"), spawnPoint.position, spawnPoint.rotation, 0, new object[] { PV.ViewID });
+        controller.GetComponent<WeaponHandler>().Equip(kills);
     }
 
     public void Die()
     {
         if (is_counting) return;
-
-        PV.RPC("RagdollCorpse", RpcTarget.All, PV.ViewID, controller.transform.position, controller.transform.rotation);
-
         PhotonNetwork.Destroy(controller);
         is_counting = true;
     }
 
     [PunRPC]
-    void RagdollCorpse(int viewID, Vector3 deathPos, Quaternion deathRot)
-    {
-        PhotonView corpsePV = PhotonView.Find(viewID);
-        GameObject player = corpsePV.gameObject;
-        GameObject ragdoll = Instantiate(Resources.Load<GameObject>("Photon/Ragdoll"), deathPos, deathRot);
-        
+    void RagdollCorpse()
+    {        
         if(PV.IsMine)
         {
             Camera.main.transform.position = ragdoll.transform.position + new Vector3(0, 15f, -2f);
             Camera.main.transform.LookAt(ragdoll.transform.position);
-
         }
+        Destroy(ragdoll, ragdollDestroyTimer);
     }   
 
     public void GetKill()
@@ -103,7 +99,7 @@ public class PlayerHandler : MonoBehaviourPunCallbacks
     void RPC_GetKill()
     {
         kills++;
-        GameManager.instance.CheckKills(kills, PhotonNetwork.LocalPlayer.NickName);
+        GameManager.Instance.CheckKills(kills, PhotonNetwork.LocalPlayer.NickName);
         Hashtable hash = new Hashtable();
         hash.Add("kills", kills);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
@@ -114,15 +110,6 @@ public class PlayerHandler : MonoBehaviourPunCallbacks
     {
         return FindObjectsOfType<PlayerHandler>().SingleOrDefault(x => x.PV.Owner == player);
     }
-    public void LeaveRoom()
-    {
-        PhotonNetwork.AutomaticallySyncScene = false;
-        PhotonNetwork.LeaveRoom();
-        Destroy(RoomManager.Instance.gameObject);
-    }
-    public override void OnLeftRoom()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
+
 
 }

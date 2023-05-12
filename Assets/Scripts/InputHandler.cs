@@ -28,6 +28,8 @@ public class InputHandler : MonoBehaviour
     float verticalLookRotation;
     private float zoomSensitivityMultiplier;
 
+    public bool isTesting;
+
     private void Start()
     {
         mouseXSensitivity = PlayerPrefs.GetFloat("MouseXSensitivity");
@@ -69,7 +71,7 @@ public class InputHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(inGameUI.activeSelf)
+            if (inGameUI.activeSelf)
             {
                 isPaused = false;
                 inGameUI.SetActive(false);
@@ -96,14 +98,16 @@ public class InputHandler : MonoBehaviour
         MouseY = Input.GetAxisRaw("Mouse Y");
 
 
-
-        for (int i = 0; i < weaponHandler.guns.Length; i++)
-        {
-            
-            if (Input.GetKeyDown((i + 1).ToString()) && !weaponHandler.isReloading)
+        if (isTesting)
+        { 
+            for (int i = 0; i < weaponHandler.guns.Length; i++)
             {
-                weaponHandler.Equip(i);
-                break;
+            
+                if (Input.GetKeyDown((i + 1).ToString()) && !weaponHandler.isReloading)
+                {
+                    weaponHandler.Equip(i);
+                    break;
+                }
             }
         }
         if (Input.GetMouseButton(0) && !weaponHandler.isReloading)

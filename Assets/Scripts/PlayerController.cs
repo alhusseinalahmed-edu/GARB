@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
 {
@@ -185,10 +186,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         }
 
     }
+
     public void LeaveRoom()
     {
-        playerHandler.LeaveRoom();
+        GameManager.Instance.LeaveRoom();
     }
-
     #endregion
 }

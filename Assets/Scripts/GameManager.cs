@@ -1,5 +1,4 @@
 using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,55 +6,77 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
-    [Header("Refs")]
-    [SerializeField] GameObject InGameMenu;
-    [SerializeField] GameObject GameOverMenu;
-    [SerializeField] PhotonView PV;
+    [Header("References")]
+    [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private PhotonView PV;
 
-    
-    [HideInInspector] public int MostKills;
+
+    [HideInInspector] public int mostKills;
 
     [Header("Settings")]
-    public int killsToWin = 5;
+    [SerializeField] private int killsToWin = 5;
 
     private void Awake()
     {
-        if (!PhotonNetwork.IsConnected) SceneManager.LoadScene("MainMenu");
-        instance = this;
+        if (!PhotonNetwork.IsConnected)
+        {
+            SceneManager.LoadScene("MainMenu");
+            return;
+        }
+
+        Instance = this;
     }
 
     public void CheckKills(int kills, string playerName)
     {
-        if(kills > MostKills)
+        if (kills > mostKills)
         {
-            MostKills = kills;
+            mostKills = kills;
         }
-        if(kills == killsToWin)
+
+        if (kills == killsToWin)
         {
             EndGame(playerName);
         }
     }
+
     public void EndGame(string playerName)
     {
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        PV.RPC("RPC_DestroyAll", RpcTarget.All);
-        PV.RPC("RPC_GameOverMenu", RpcTarget.All, playerName);
+
+        PV.RPC("DestroyAll", RpcTarget.MasterClient);
+        PV.RPC("ShowGameOverMenu", RpcTarget.All, playerName);
     }
+
     [PunRPC]
-    private void RPC_DestroyAll()
+    private void DestroyAll()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
         PhotonNetwork.DestroyAll();
     }
+
     [PunRPC]
-    void RPC_GameOverMenu(string playerName)
+    private void ShowGameOverMenu(string playerName)
     {
-        GameOverMenu.SetActive(true);
+        gameOverMenu.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        GameOverMenu.transform.Find("Winner").GetComponent<TMP_Text>().text = "The winner is " + playerName;
+
+        TMP_Text winnerText = gameOverMenu.transform.Find("Winner").GetComponent<TMP_Text>();
+        winnerText.text = "The winner is " + playerName;
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.AutomaticallySyncScene = false;
+        PhotonNetwork.LeaveRoom();
+        Destroy(RoomManager.Instance.gameObject);
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
