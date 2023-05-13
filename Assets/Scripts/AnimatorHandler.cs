@@ -5,14 +5,13 @@ using Photon.Pun;
 
 public class AnimatorHandler : MonoBehaviour
 {
-    [Header("Refs")]
+    [Header("Components")]
     public InputHandler inputHandler;
     public PlayerController playerController;
     public WeaponHandler weaponHandler;
     public PhotonView PV;
     public Animator animator;
-    public Transform headTransform;
-    public Camera fpsCamera;
+
     [Header("Settings")]
     public float movementBlendTreeSmooth;
 

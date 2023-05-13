@@ -15,6 +15,7 @@ public class WeaponHandler : MonoBehaviour
     [Header("Refs")]
     public AnimatorHandler animatorHandler;
     public PlayerController playerController;
+    public MovementHandler movementHandler;
     public RecoilHandler recoilHandler;
     public TMP_Text ammoText;
     public Image crosshair;
@@ -137,7 +138,6 @@ public class WeaponHandler : MonoBehaviour
         }
         if (PV.IsMine)
         {
-            playerController.maxVelocity = playerController.defaultVelocity * currentGun.movementSpeedMultiplier;
 
             foreach (GameObject go in fpsGuns)
             {
@@ -365,7 +365,7 @@ public class WeaponHandler : MonoBehaviour
     }
     public void HandleBulletSpread()
     {
-        if (playerController.isMoving)
+        if (movementHandler.isMoving)
         {
             foreach (GameObject go in fpsGuns)
             {

@@ -1,29 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SetupRagdoll : MonoBehaviour
+public class RagdollHandler : MonoBehaviour
 {
     private Rigidbody[] ragdollRigidbodies;
     private Collider[] ragdollColliders;
 
+    public float ragdollDestroyTime = 30f;
+
     [SerializeField] Transform model;
-    [SerializeField] GameObject[] models;
+    [SerializeField] PhotonView PV;
     public void Awake()
     {
         ragdollRigidbodies = model.GetComponentsInChildren<Rigidbody>();
         ragdollColliders = model.GetComponentsInChildren<Collider>();
     }
 
-    public void Setup(bool isTrue)
+    public void Setup(bool dead)
     {
-        if (isTrue)
+        if (dead)
         {
-            foreach(Rigidbody rb in ragdollRigidbodies)
+            foreach (Rigidbody rb in ragdollRigidbodies)
             {
                 rb.isKinematic = false;
             }
-            foreach(Collider collider in ragdollColliders)
+            foreach (Collider collider in ragdollColliders)
             {
                 collider.enabled = true;
             }
@@ -39,6 +42,18 @@ public class SetupRagdoll : MonoBehaviour
                 collider.enabled = false;
             }
         }
+    }
+    public void Die()
+    {
+        PV.RPC("RPC_deadRagdoll", RpcTarget.All);
+    }
+    [PunRPC]
+    public void RPC_deadRagdoll()
+    {
+        if (PV.IsMine) model.gameObject.SetActive(true);
+        Setup(true);
+        model.SetParent(null);
+        Destroy(model.gameObject, ragdollDestroyTime);
     }
 
 }

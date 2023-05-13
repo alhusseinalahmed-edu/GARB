@@ -19,6 +19,8 @@ public class InputHandler : MonoBehaviour
     public float mouseXSensitivity;
     public float mouseYSensitivity;
     public bool isAiming = false;
+    public bool isRunning = false;
+    public bool isJumping = false;
 
     [HideInInspector] public float vert;
     [HideInInspector] public float horz;
@@ -97,6 +99,9 @@ public class InputHandler : MonoBehaviour
         MouseX = Input.GetAxisRaw("Mouse X");
         MouseY = Input.GetAxisRaw("Mouse Y");
 
+        isRunning = Input.GetKey(KeyCode.LeftShift);
+        isJumping = Input.GetKey(KeyCode.Space) || Input.GetAxisRaw("Mouse ScrollWheel") < -0.25 ;
+        
 
         if (isTesting)
         { 
@@ -146,6 +151,10 @@ public class InputHandler : MonoBehaviour
                 scoreboardUI.SetActive(true);
                 scoreBoard.UpdateScoreboard();
             }
+        }
+        if (Input.GetKeyDown(KeyCode.End) || Input.GetKey(KeyCode.Alpha0))
+        {
+            playerController.Die();
         }
     }
 
