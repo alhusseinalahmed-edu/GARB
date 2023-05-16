@@ -138,6 +138,8 @@ public class WeaponHandler : MonoBehaviour
         }
         if (PV.IsMine)
         {
+            // Change speed
+            movementHandler.OnWeaponEquip(currentGun.movementSpeedMultiplier);
 
             foreach (GameObject go in fpsGuns)
             {

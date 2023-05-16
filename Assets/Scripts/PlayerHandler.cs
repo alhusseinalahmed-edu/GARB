@@ -20,9 +20,7 @@ public class PlayerHandler : MonoBehaviourPunCallbacks
     private float currentTime;
     private bool is_counting;
 
-    public float ragdollDestroyTimer = 10f;
 
-    public GameObject ragdoll;
 
     void Awake()
     {
@@ -75,20 +73,11 @@ public class PlayerHandler : MonoBehaviourPunCallbacks
     public void Die()
     {
         if (is_counting) return;
+        Camera.main.transform.position = controller.transform.position + new Vector3(0, 5f, -2f);
+        Camera.main.transform.LookAt(controller.transform.position);
         PhotonNetwork.Destroy(controller);
         is_counting = true;
     }
-
-    [PunRPC]
-    void RagdollCorpse()
-    {        
-        if(PV.IsMine)
-        {
-            Camera.main.transform.position = ragdoll.transform.position + new Vector3(0, 15f, -2f);
-            Camera.main.transform.LookAt(ragdoll.transform.position);
-        }
-        Destroy(ragdoll, ragdollDestroyTimer);
-    }   
 
     public void GetKill()
     {

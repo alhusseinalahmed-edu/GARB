@@ -11,13 +11,11 @@ public class AnimatorHandler : MonoBehaviour
     public WeaponHandler weaponHandler;
     public PhotonView PV;
     public Animator animator;
+    public MovementHandler movementHandler;
 
     [Header("Settings")]
     public float movementBlendTreeSmooth;
 
-    private void Start()
-    {
-    }
     private void Update()
     {
         HandleAnimator();
@@ -28,6 +26,11 @@ public class AnimatorHandler : MonoBehaviour
         animator.SetFloat("horz", inputHandler.horz, 1f, Time.deltaTime * movementBlendTreeSmooth);
     }
     public void SetBool(string name, bool isTrue)
+    {
+        PV.RPC("RPC_SetBool", RpcTarget.All, name, isTrue);
+    }
+    [PunRPC]
+    void RPC_SetBool(string name, bool isTrue)
     {
         animator.SetBool(name, isTrue);
     }

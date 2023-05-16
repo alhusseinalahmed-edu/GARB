@@ -25,7 +25,7 @@ MonoBehaviour:
   ammoLeft: 1
   startingAmmo: 1
   zoomFOV: 40
-  movementSpeedMultiplier: 1
+  movementSpeedMultiplier: 2
   weaponSounds:
   - {fileID: 8300000, guid: ebfe2adf2edc6ba47a28f829d1e73b60, type: 3}
   weaponVolume: 0.1

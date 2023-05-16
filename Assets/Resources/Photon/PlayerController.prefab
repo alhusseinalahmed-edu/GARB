@@ -5542,6 +5542,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 2
     Name: gunIndex
+  - Type: 4
+    SynchronizeType: 2
+    Name: isGrounded
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
@@ -5815,7 +5818,8 @@ MonoBehaviour:
   weaponHandler: {fileID: 5471876724386942851}
   PV: {fileID: 6823493545006358621}
   animator: {fileID: 5865079929864282414}
-  movementBlendTreeSmooth: 7
+  movementHandler: {fileID: 894459965435385901}
+  movementBlendTreeSmooth: 12
 --- !u!114 &2738951344121759016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5846,7 +5850,7 @@ MonoBehaviour:
   MouseX: 0
   MouseY: 0
   isPaused: 0
-  isTesting: 0
+  isTesting: 1
 --- !u!143 &5386270808425627732
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5909,13 +5913,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d534351b4783eb94f8a8bf24641f1af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
-  walkSpeed: 4
-  runSpeed: 8
-  jumpHeight: 2
-  gravity: -9.82
+  baseSpeed: 6
+  maxVelocity: 15
+  jumpVelocity: 5
   PV: {fileID: 6823493545006358621}
   inputHandler: {fileID: 2738951344121759016}
+  animatorHandler: {fileID: 5119238525579843056}
   controller: {fileID: 5386270808425627732}
   isMoving: 0
 --- !u!114 &5014927255766803648
@@ -5930,6 +5933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb2e9e8e2bd0734891b609dd87e65d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdollDestroyTime: 30
   model: {fileID: 68201977530394456}
   PV: {fileID: 6823493545006358621}
 --- !u!1 &6920863618493880429

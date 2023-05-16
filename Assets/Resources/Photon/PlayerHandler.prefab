@@ -306,5 +306,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countdownDuration: 3
   countdownText: {fileID: 8341657354118646808}
-  ragdollDestroyTimer: 10
-  ragdoll: {fileID: 0}
