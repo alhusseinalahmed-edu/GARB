@@ -21,9 +21,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     [Header("References")]
     [SerializeField] Transform model;
     [SerializeField] GameObject UI;
-    [SerializeField] Image healthBarImage;
     [SerializeField] AudioClip hitClip;
     [SerializeField] GameObject hitmarker;
+    [SerializeField] TMP_Text healthText;
 
     const float maxHealth = 100f;
     float currentHealth = maxHealth;
@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         if (PV.IsMine)
         {
             model.gameObject.SetActive(false);
+            healthText.text = currentHealth.ToString();
         }
         else
         {
@@ -49,6 +50,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
         }
         ragdollHandler.Setup(false);
         GetComponent<Collider>().enabled = true;
+    }
+    
+    public void Heal()
+    {
+        PV.RPC("RPC_Heal", RpcTarget.All);
+    }
+    [PunRPC]
+    void RPC_Heal()
+    {
+        currentHealth = maxHealth;
+
+        if (PV.IsMine)
+        {
+            healthText.text = currentHealth.ToString();
+        }
+
     }
     public void PlayHitSound()
     {
@@ -72,7 +89,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamagable
     {
         if (!PV.IsMine) return;
         currentHealth -= damage;
-        healthBarImage.fillAmount = currentHealth / maxHealth;
+        healthText.text = currentHealth.ToString();
         if (currentHealth <= 0)
         {
             Die();

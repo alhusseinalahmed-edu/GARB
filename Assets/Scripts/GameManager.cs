@@ -11,12 +11,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("References")]
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private PhotonView PV;
-
+    [SerializeField] Scoreboard scoreboard;
+    [SerializeField] TMP_Text winnerText;
 
     [HideInInspector] public int mostKills;
 
     [Header("Settings")]
     [SerializeField] private int killsToWin = 5;
+
 
     private void Awake()
     {
@@ -60,12 +62,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void ShowGameOverMenu(string playerName)
     {
+        scoreboard.UpdateScoreboard();
         gameOverMenu.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        TMP_Text winnerText = gameOverMenu.transform.Find("Winner").GetComponent<TMP_Text>();
-        winnerText.text = "The winner is " + playerName;
+        winnerText.text = playerName;
     }
 
     public void LeaveRoom()

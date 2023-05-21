@@ -21,12 +21,11 @@ MonoBehaviour:
   weaponRange: 100
   ammoPerMag: 30
   reloadDuration: 2.57
-  currentAmmo: 30
-  ammoLeft: 150
+  currentAmmo: 15
+  ammoLeft: 60
   startingAmmo: 150
   zoomFOV: 40
   movementSpeedMultiplier: 1
-  zoomSensitivity: 0.75
   weaponSounds:
   - {fileID: 8300000, guid: c4e29a8b7d18261478624acd9676cfa4, type: 3}
   - {fileID: 8300000, guid: 15f91a02d0db65548a15522c890ff759, type: 3}
@@ -39,5 +38,5 @@ MonoBehaviour:
   normalBulletSpread: 0
   Position: {x: 0.26, y: 0.15, z: 0.2}
   Rotation: {x: 0, y: 0.1305262, z: 0, w: 0.9914449}
-  ADS_Position: {x: -0.0035, y: 0.31, z: 0.15}
+  ADS_Position: {x: -0.0035, y: 0.31, z: 0.2}
   ADS_Rotation: {x: 0, y: 0, z: 0, w: 1}

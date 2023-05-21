@@ -94,6 +94,8 @@ public class WeaponHandler : MonoBehaviour
         }
         zoomFOV = currentGun.zoomFOV;
         targetFOV = inputHandler.isAiming ? zoomFOV : originalFOV;
+
+        crosshair.gameObject.SetActive(!inputHandler.isAiming);
     }
     public void Equip(int _index)
     {
@@ -312,10 +314,12 @@ public class WeaponHandler : MonoBehaviour
             if (currentGun.ammoLeft > 0)
             {
                 isReloading = true;
+                animatorHandler.SetBool("isReloading", true);
                 weaponAnimator.CrossFadeInFixedTime("Reload", 0.01f);
                 weaponAnimator.SetBool("Reload", true);
                 yield return new WaitForSeconds(currentGun.reloadDuration);
                 isReloading = false;
+                animatorHandler.SetBool("isReloading", false);
                 weaponAnimator.SetBool("Reload", false);
 
                 int reloadAmount = currentGun.ammoPerMag - currentGun.currentAmmo;

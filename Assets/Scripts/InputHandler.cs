@@ -30,6 +30,23 @@ public class InputHandler : MonoBehaviour
     float verticalLookRotation;
     private float zoomSensitivityMultiplier;
 
+    public float smoothing = 1f;
+    public float leanAngle = 20f;
+
+    private Vector2 smoothMouse;
+    private Vector2 currentMouseDelta;
+    private Vector2 currentMouseDeltaVelocity;
+
+    private bool isLeaningLeft = false;
+    private bool isLeaningRight = false;
+    public enum LeanSide
+    {
+        Right,
+        Left,
+        Mid,
+    }
+
+
     public bool isTesting;
 
     private void Start()
@@ -60,14 +77,32 @@ public class InputHandler : MonoBehaviour
     private void Look()
     {
         if (isPaused) return;
-        verticalLookRotation += MouseY * mouseYSensitivity;
-        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90, 90);
+         verticalLookRotation += MouseY * mouseYSensitivity;
+         verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90, 90);
 
 
-        transform.Rotate(Vector3.up * MouseX * mouseXSensitivity);
-        cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+         transform.Rotate(Vector3.up * MouseX * mouseXSensitivity);
+         cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+        
 
     }
+    private void ApplyLeaning()
+    {
+        float leanAngleZ = 0f;
+
+        if (isLeaningLeft)
+        {
+            leanAngleZ = leanAngle;
+        }
+        else if (isLeaningRight)
+        {
+            leanAngleZ = -leanAngle;
+        }
+
+        Quaternion leaningRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, leanAngleZ);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, leaningRotation, Time.deltaTime * smoothing);
+    }
+
 
     private void HandleInput()
     {
@@ -100,8 +135,25 @@ public class InputHandler : MonoBehaviour
         MouseY = Input.GetAxisRaw("Mouse Y");
 
         isRunning = Input.GetKey(KeyCode.LeftShift);
-        isJumping = Input.GetKey(KeyCode.Space) || Input.GetAxisRaw("Mouse ScrollWheel") < -0.25 ;
-        
+        isJumping = Input.GetKey(KeyCode.Space) || Input.GetAxisRaw("Mouse ScrollWheel") < -0.25;
+
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            isLeaningLeft = true;
+            isLeaningRight = false;
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            isLeaningLeft = false;
+            isLeaningRight = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
+        {
+            isLeaningLeft = false;
+            isLeaningRight = false;
+
+        }
 
         if (isTesting)
         { 
@@ -162,6 +214,7 @@ public class InputHandler : MonoBehaviour
     {
         if (!PV.IsMine) return;
         HandleInput();
+        ApplyLeaning();
         Look();
     }
 

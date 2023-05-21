@@ -88,6 +88,7 @@ public class PlayerHandler : MonoBehaviourPunCallbacks
     void RPC_GetKill()
     {
         kills++;
+        controller.GetComponent<PlayerController>().Heal();
         GameManager.Instance.CheckKills(kills, PhotonNetwork.LocalPlayer.NickName);
         Hashtable hash = new Hashtable();
         hash.Add("kills", kills);

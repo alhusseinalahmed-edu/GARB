@@ -10,7 +10,6 @@ public class Scoreboard : MonoBehaviourPunCallbacks
     public Transform scorePanelParent;
 
     private Dictionary<Player, ScorePanel> scorePanels = new Dictionary<Player, ScorePanel>();
-
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         if (changedProps.ContainsKey("kills"))

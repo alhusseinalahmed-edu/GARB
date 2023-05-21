@@ -82,5 +82,9 @@ public class MovementHandler : MonoBehaviour
             return newVelocity;
         }
     }
+    public bool isGrounded()
+    {
+        return controller.isGrounded;
+    }
 
 }
