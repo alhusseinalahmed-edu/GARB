@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Scoreboard scoreboard;
     [SerializeField] TMP_Text winnerText;
 
-    [HideInInspector] public int mostKills;
 
     [Header("Settings")]
     [SerializeField] private int killsToWin = 5;
 
+    [HideInInspector] public int mostKills;
 
     private void Awake()
     {

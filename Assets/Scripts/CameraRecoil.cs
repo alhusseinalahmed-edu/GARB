@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CameraRecoil : MonoBehaviour
 {
+    [Header("Settings")]
     public float maxRecoilAngle = 5.0f;
     public float recoilSpeed = 5.0f;
     public float returnSpeed = 10.0f;
@@ -11,6 +12,7 @@ public class CameraRecoil : MonoBehaviour
     private bool isReturning = false;
     private Quaternion originalRotation;
 
+    [Header("References")]
     [SerializeField] private WeaponHandler weaponHandler;
 
     private void Start()

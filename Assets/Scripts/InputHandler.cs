@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    [Header("Refs")]
+    [Header("References")]
     [SerializeField] PlayerController playerController;
     [SerializeField] AnimatorHandler animatorHandler;
     [SerializeField] WeaponHandler weaponHandler;
@@ -16,22 +16,30 @@ public class InputHandler : MonoBehaviour
     [SerializeField] GameObject scoreboardUI;
     [SerializeField] GameObject inGameUI;
     [SerializeField] Scoreboard scoreBoard;
+
+    [Header("Settings")]
+
     public float mouseXSensitivity;
     public float mouseYSensitivity;
+
+    [Header("LeanSettings")]
+    public float smoothing = 1f;
+    public float leanAngle = 20f;
+
+    [Header("States")]
     public bool isAiming = false;
     public bool isRunning = false;
     public bool isJumping = false;
+    [Space]
+    public bool isPaused = false;
 
     [HideInInspector] public float vert;
     [HideInInspector] public float horz;
     [HideInInspector] public float MouseX;
     [HideInInspector] public float MouseY;
-    public bool isPaused = false;
     float verticalLookRotation;
     private float zoomSensitivityMultiplier;
 
-    public float smoothing = 1f;
-    public float leanAngle = 20f;
 
     private Vector2 smoothMouse;
     private Vector2 currentMouseDelta;

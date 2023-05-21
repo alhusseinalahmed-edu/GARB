@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 
 public class MenuManager : MonoBehaviour
 {
+    [Header("References")]
     public static MenuManager instance;
     public AudioMixer audioMixer;
     [SerializeField] Menu[] menus;

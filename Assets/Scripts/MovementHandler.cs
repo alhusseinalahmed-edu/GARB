@@ -4,14 +4,15 @@ using Photon.Pun;
 [RequireComponent(typeof(CharacterController))]
 public class MovementHandler : MonoBehaviour
 {
+    [Header("Settings")]
     public float baseSpeed = 5f;
     public float maxVelocity = 5f;
     public float jumpVelocity = 5f;
 
+    [Header("References")]
     [SerializeField] PhotonView PV;
     [SerializeField] InputHandler inputHandler;
     [SerializeField] AnimatorHandler animatorHandler;
-
     public CharacterController controller;
 
     public bool isMoving;
