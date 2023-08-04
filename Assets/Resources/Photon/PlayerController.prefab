@@ -5945,16 +5945,16 @@ MonoBehaviour:
   scoreBoard: {fileID: 3241869828259640461}
   mouseXSensitivity: 0
   mouseYSensitivity: 0
+  smoothing: 5
+  leanAngle: 12
   isAiming: 0
   isRunning: 0
   isJumping: 0
+  isPaused: 0
   vert: 0
   horz: 0
   MouseX: 0
   MouseY: 0
-  isPaused: 0
-  smoothing: 5
-  leanAngle: 12
   isTesting: 1
 --- !u!143 &5386270808425627732
 CharacterController:
